@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>My Applications - Freelancer Hub</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+          rel="stylesheet">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css"
+          rel="stylesheet">
+
+    <style>
+        body {
+            background: #f5f6fa;
+            font-family: Arial, sans-serif;
+        }
+
+        .header {
+            background: white;
+            height: 75px;
+            padding: 0 35px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-bottom: 1px solid #e5e7eb;
+        }
+
+        .header h4 {
+            margin: 0;
+            font-weight: 700;
+        }
+
+        .content {
+            padding: 35px;
+        }
+
+        .application-card {
+            background: white;
+            border: 1px solid #e5e7eb;
+            border-radius: 15px;
+            padding: 25px;
+            margin-bottom: 20px;
+        }
+
+        .project-title {
+            font-size: 20px;
+            font-weight: 700;
+            color: #333;
+        }
+
+        .client {
+            color: #777;
+            font-size: 14px;
+            margin-top: 5px;
+        }
+
+        .description {
+            color: #666;
+            margin: 15px 0;
+        }
+
+        .skills {
+            color: #6366f1;
+            font-weight: 600;
+        }
+
+        .budget {
+            font-size: 18px;
+            font-weight: 700;
+        }
+
+        .proposal {
+            background: #f8f8ff;
+            padding: 15px;
+            border-radius: 10px;
+            margin-top: 15px;
+        }
+
+        .proposal-title {
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+
+        /* Application Status */
+
+        .status {
+            padding: 7px 14px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .status-pending {
+            background: #fff3cd;
+            color: #856404;
+        }
+
+        .status-accepted {
+            background: #dcfce7;
+            color: #166534;
+        }
+
+        .status-rejected {
+            background: #fee2e2;
+            color: #b91c1c;
+        }
+
+        .status-default {
+            background: #e5e7eb;
+            color: #374151;
+        }
+
+        .empty {
+            background: white;
+            border-radius: 15px;
+            padding: 60px 30px;
+            text-align: center;
+        }
+
+        .empty i {
+            font-size: 55px;
+            color: #6366f1;
+        }
+
+        .btn-primary {
+            background: #6366f1;
+            border: none;
+        }
+
+        .btn-primary:hover {
+            background: #4f46e5;
+        }
+
+        .btn-primary {
+    background: #6366f1;
+    border: none;
+    padding: 8px 18px;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 500;
+    display: inline-block;
+    width: auto;
+}
+
+.btn-primary:hover {
+    background: #4f46e5;
+}
+    </style>
+</head>
+
+<body>
+
+<!-- Header -->
+<div class="header">
+
+    <h4>
+        <i class="bi bi-file-earmark-text text-primary"></i>
+        My Applications
+    </h4>
+
+    <div>
+        <strong>{{ user_name }}</strong>
+        <span class="text-muted"> | Freelancer</span>
+    </div>
+
+</div>
+
+
+<!-- Content -->
+<div class="content">
+
+    <div class="mb-4">
+
+        <h2>My Applications</h2>
+
+        <p class="text-muted">
+            View all the projects you have applied for.
+        </p>
+
+    </div>
+
+
+    {% if applications %}
+
+        {% for application in applications %}
+
+        <div class="application-card">
+
+            <!-- Project Header -->
+            <div class="d-flex justify-content-between align-items-start">
+
+                <div>
+
+                    <div class="project-title">
+                        {{ application.title }}
+                    </div>
+
+                    <div class="client">
+                        <i class="bi bi-person"></i>
+                        Client: {{ application.client_name }}
+                    </div>
+
+                </div>
+
+
+                <!-- Application Status -->
+
+                {% if application.status|lower == "pending" %}
+
+                    <span class="status status-pending">
+                        <i class="bi bi-clock me-1"></i>
+                        Pending
+                    </span>
+
+                {% elif application.status|lower == "accepted" %}
+
+                    <span class="status status-accepted">
+                        <i class="bi bi-check-circle me-1"></i>
+                        Accepted
+                    </span>
+
+                {% elif application.status|lower == "rejected" %}
+
+                    <span class="status status-rejected">
+                        <i class="bi bi-x-circle me-1"></i>
+                        Rejected
+                    </span>
+
+                {% else %}
+
+                    <span class="status status-default">
+                        {{ application.status }}
+                    </span>
+
+                {% endif %}
+
+            </div>
+
+
+            <!-- Description -->
+
+            <div class="description">
+
+                {{ application.description }}
+
+            </div>
+
+
+            <!-- Skills -->
+
+            <div class="mb-3">
+
+                <strong>Skills:</strong>
+
+                <span class="skills">
+                    {{ application.skills }}
+                </span>
+
+            </div>
+
+
+            <!-- Budget & Deadline -->
+
+            <div class="row">
+
+                <div class="col-md-6">
+
+                    <div class="budget">
+
+                        <i class="bi bi-currency-rupee"></i>
+
+                        ₹{{ "{:,.0f}".format(application.budget or 0) }}
+
+                    </div>
+
+                </div>
+
+
+                <div class="col-md-6">
+
+                    <div class="text-muted">
+
+                        <i class="bi bi-calendar"></i>
+
+                        Deadline:
+
+                        {% if application.deadline %}
+                            {{ application.deadline }}
+                        {% else %}
+                            Not specified
+                        {% endif %}
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- Proposal -->
+
+            <div class="proposal">
+
+                <div class="proposal-title">
+                    Your Proposal
+                </div>
+
+                <div class="text-muted">
+                    {{ application.proposal }}
+                </div>
+
+            </div>
+
+
+            <!-- Applied Date -->
+
+            <div class="mt-3 text-muted small">
+
+                <i class="bi bi-clock"></i>
+
+                Applied on:
+                {{ application.applied_at }}
+
+            </div>
+
+        </div>
+
+        {% endfor %}
+
+
+    {% else %}
+
+        <!-- No Applications -->
+
+        <div class="empty">
+
+            <i class="bi bi-file-earmark-x"></i>
+
+            <h4 class="mt-3">
+                No Applications Yet
+            </h4>
+
+            <p class="text-muted">
+                You have not applied for any project yet.
+            </p>
+
+            <a href="{{ url_for('find_projects') }}"
+   class="btn btn-primary mt-2">
+
+    <i class="bi bi-search me-1"></i>
+    Find Projects
+
+</a>
+
+        </div>
+
+    {% endif %}
+
+</div>
+
+</body>
+</html>

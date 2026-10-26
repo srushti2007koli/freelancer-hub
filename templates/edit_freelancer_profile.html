@@ -1,0 +1,548 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Edit Profile | Freelancer Hub</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+          rel="stylesheet">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css"
+          rel="stylesheet">
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap"
+          rel="stylesheet">
+
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            background: #f5f6fa;
+            font-family: 'Poppins', sans-serif;
+            color: #374151;
+        }
+
+        .sidebar {
+            position: fixed;
+            left: 0;
+            top: 0;
+
+            width: 250px;
+            height: 100vh;
+
+            background: white;
+
+            border-right: 1px solid #e5e7eb;
+
+            padding: 22px 16px;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+
+            padding: 0 8px 25px;
+        }
+
+        .logo-icon {
+            width: 38px;
+            height: 38px;
+
+            background: #6366f1;
+            color: white;
+
+            border-radius: 10px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .logo h4 {
+            margin: 0;
+
+            font-size: 17px;
+            font-weight: 600;
+        }
+
+        .menu-title {
+            margin: 18px 8px 8px;
+
+            font-size: 10px;
+            font-weight: 600;
+
+            color: #9ca3af;
+
+            text-transform: uppercase;
+        }
+
+        .sidebar a {
+            display: flex;
+            align-items: center;
+
+            gap: 13px;
+
+            padding: 12px 14px;
+
+            margin: 5px 0;
+
+            border-radius: 9px;
+
+            color: #555;
+
+            text-decoration: none;
+
+            font-size: 14px;
+        }
+
+        .sidebar a:hover {
+            background: #f0efff;
+            color: #6366f1;
+        }
+
+        .sidebar a.active {
+            background: #6366f1;
+            color: white;
+        }
+
+        .main {
+            margin-left: 250px;
+            padding: 35px;
+            min-height: 100vh;
+        }
+
+        .page-header {
+            margin-bottom: 25px;
+        }
+
+        .page-header h2 {
+            margin: 0;
+
+            font-size: 24px;
+            font-weight: 600;
+
+            color: #1f2937;
+        }
+
+        .page-header p {
+            margin-top: 5px;
+
+            color: #9ca3af;
+
+            font-size: 13px;
+        }
+
+        .edit-card {
+            max-width: 750px;
+
+            background: white;
+
+            border: 1px solid #e5e7eb;
+
+            border-radius: 16px;
+
+            padding: 30px;
+
+            box-shadow: 0 5px 20px rgba(0,0,0,0.04);
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-label {
+            font-size: 12px;
+
+            font-weight: 500;
+
+            color: #374151;
+
+            margin-bottom: 7px;
+        }
+
+        .form-control {
+            height: 44px;
+
+            border: 1px solid #dfe2ea;
+
+            border-radius: 8px;
+
+            font-size: 13px;
+        }
+
+        textarea.form-control {
+            height: 110px;
+
+            resize: vertical;
+
+            padding-top: 12px;
+        }
+
+        .form-control:focus {
+            border-color: #6366f1;
+
+            box-shadow: 0 0 0 3px rgba(99,102,241,0.10);
+        }
+
+        .button-row {
+            display: flex;
+
+            gap: 10px;
+
+            margin-top: 25px;
+        }
+
+        .save-btn {
+            border: none;
+
+            background: #6366f1;
+
+            color: white;
+
+            padding: 10px 20px;
+
+            border-radius: 8px;
+
+            font-size: 12px;
+
+            font-weight: 500;
+        }
+
+        .save-btn:hover {
+            background: #4f46e5;
+        }
+
+        .cancel-btn {
+            background: #f3f4f6;
+
+            color: #374151;
+
+            padding: 10px 20px;
+
+            border-radius: 8px;
+
+            text-decoration: none;
+
+            font-size: 12px;
+
+            font-weight: 500;
+        }
+
+        .cancel-btn:hover {
+            background: #e5e7eb;
+
+            color: #374151;
+        }
+
+        /* Flash message: plain text, no border, no background */
+        .flash-text {
+            margin: 0 0 15px;
+            padding: 0;
+            border: none;
+            background: none;
+            font-size: 13px;
+            font-weight: 500;
+            transition: opacity 0.5s;
+        }
+
+        .flash-success { color: #198754; }
+        .flash-danger  { color: #dc3545; }
+        .flash-warning { color: #b7791f; }
+
+        .helper-text {
+            margin-top: 5px;
+
+            color: #9ca3af;
+
+            font-size: 10px;
+        }
+
+        @media (max-width: 768px) {
+
+            .sidebar {
+                width: 70px;
+                padding: 15px 8px;
+            }
+
+            .logo h4,
+            .menu-title,
+            .sidebar a {
+                font-size: 0;
+            }
+
+            .sidebar a {
+                justify-content: center;
+            }
+
+            .sidebar a i {
+                font-size: 18px;
+            }
+
+            .main {
+                margin-left: 70px;
+                padding: 20px;
+            }
+
+            .edit-card {
+                padding: 20px;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<!-- SIDEBAR -->
+
+<div class="sidebar">
+
+    <div class="logo">
+
+        <div class="logo-icon">
+            <i class="bi bi-send-fill"></i>
+        </div>
+
+        <h4>Freelancer Hub</h4>
+
+    </div>
+
+
+    <div class="menu-title">
+        Menu
+    </div>
+
+
+    <a href="{{ url_for('freelancer_dashboard') }}">
+        <i class="bi bi-grid-fill"></i>
+        Dashboard
+    </a>
+
+
+    <a href="{{ url_for('find_projects') }}">
+        <i class="bi bi-search"></i>
+        Find Projects
+    </a>
+
+
+    <a href="{{ url_for('my_applications') }}">
+        <i class="bi bi-file-earmark-text"></i>
+        My Applications
+    </a>
+
+
+    <a href="{{ url_for('hired_projects') }}">
+        <i class="bi bi-briefcase-fill"></i>
+        Hired Projects
+    </a>
+
+
+    <a href="/freelancer-messages">
+        <i class="bi bi-chat-dots-fill"></i>
+        Messages
+    </a>
+
+
+    <div class="menu-title">
+        Account
+    </div>
+
+
+    <a href="/freelancer-profile" class="active">
+        <i class="bi bi-person-fill"></i>
+        Profile
+    </a>
+
+
+    <a href="#">
+        <i class="bi bi-gear-fill"></i>
+        Settings
+    </a>
+
+</div>
+
+
+<!-- MAIN -->
+
+<div class="main">
+
+
+    <div class="page-header">
+
+        <h2>
+            Edit Profile
+        </h2>
+
+        <p>
+            Update your freelancer account information
+        </p>
+
+    </div>
+
+
+    <div class="edit-card">
+
+        {% with messages = get_flashed_messages(with_categories=true) %}
+          {% for category, message in messages %}
+            <div class="flash-text flash-{{ category }}">{{ message }}</div>
+          {% endfor %}
+        {% endwith %}
+
+        <form method="POST" action="{{ url_for('edit_freelancer_profile') }}">
+
+
+            <!-- NAME -->
+
+            <div class="form-group">
+
+                <label class="form-label">
+                    Full Name
+                </label>
+
+                <input
+                    type="text"
+                    name="name"
+                    class="form-control"
+                    value="{{ freelancer.name }}"
+                    required>
+
+            </div>
+
+
+            <!-- EMAIL -->
+
+            <div class="form-group">
+
+                <label class="form-label">
+                    Email Address
+                </label>
+
+                <input
+                    type="email"
+                    name="email"
+                    class="form-control"
+                    value="{{ freelancer.email }}"
+                    required>
+
+            </div>
+
+
+            <!-- SKILLS -->
+
+            <div class="form-group">
+
+                <label class="form-label">
+                    Skills
+                </label>
+
+                <textarea
+                    name="skills"
+                    class="form-control"
+                    placeholder="Example: Java, Python, SQL, HTML, CSS">{{ freelancer.skills or '' }}</textarea>
+
+                <div class="helper-text">
+                    Separate multiple skills using commas.
+                </div>
+
+            </div>
+
+
+            <!-- BUTTONS -->
+
+            <div class="button-row">
+
+                <button type="submit" class="save-btn">
+
+                    <i class="bi bi-check-lg me-1"></i>
+
+                    Save Changes
+
+                </button>
+
+
+                <a href="{{ url_for('freelancer_profile') }}"
+                   class="cancel-btn">
+
+                    Cancel
+
+                </a>
+
+            </div>
+
+
+        </form>
+
+
+        <!-- ===== RESUME UPLOAD (separate form) ===== -->
+
+        <hr style="margin: 25px 0;">
+
+        <form method="POST"
+              action="{{ url_for('upload_resume') }}"
+              enctype="multipart/form-data">
+
+            <div class="form-group">
+
+                <label class="form-label">
+                    Upload Resume (PDF, max 2 MB)
+                </label>
+
+                <input type="file"
+                       name="resume"
+                       accept=".pdf"
+                       class="form-control"
+                       required>
+
+                {% if freelancer and freelancer.resume_file %}
+    <div class="helper-text">
+        <strong>Uploaded Resume:</strong>
+        {{ freelancer.resume_file }}
+
+        <a href="{{ url_for('view_resume', freelancer_id=session['user_id']) }}"
+           target="_blank">
+            View Resume
+        </a>
+    </div>
+{% endif %}
+
+            </div>
+
+            <button type="submit" class="save-btn">
+                Upload Resume
+            </button>
+
+        </form>
+
+
+    </div>
+
+
+</div>
+<script>
+    // Time before the message disappears (in milliseconds): 3000 = 3 seconds
+    var MESSAGE_TIME = 3000;
+
+    setTimeout(function () {
+        document.querySelectorAll(".flash-text").forEach(function (box) {
+            box.style.opacity = "0";
+            setTimeout(function () { box.remove(); }, 500);
+        });
+    }, MESSAGE_TIME);
+</script>
+</body>
+
+</html>

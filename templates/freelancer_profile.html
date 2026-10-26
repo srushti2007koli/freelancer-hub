@@ -1,0 +1,811 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Freelancer Profile | Freelancer Hub</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+          rel="stylesheet">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css"
+          rel="stylesheet">
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap"
+          rel="stylesheet">
+
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            background: #f5f6fa;
+            font-family: 'Poppins', sans-serif;
+            color: #374151;
+        }
+
+        /* ================= SIDEBAR ================= */
+
+        .sidebar {
+            position: fixed;
+            left: 0;
+            top: 0;
+
+            width: 250px;
+            height: 100vh;
+
+            background: white;
+
+            border-right: 1px solid #e5e7eb;
+
+            padding: 22px 16px;
+
+            overflow-y: auto;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+
+            gap: 10px;
+
+            padding: 0 8px 25px;
+        }
+
+        .logo-icon {
+            width: 38px;
+            height: 38px;
+
+            background: #6366f1;
+            color: white;
+
+            border-radius: 10px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            font-size: 17px;
+        }
+
+        .logo h4 {
+            margin: 0;
+
+            font-size: 17px;
+            font-weight: 600;
+
+            color: #222;
+        }
+
+        .menu-title {
+            margin: 18px 8px 8px;
+
+            font-size: 10px;
+            font-weight: 600;
+
+            color: #9ca3af;
+
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+        }
+
+        .sidebar a {
+            display: flex;
+            align-items: center;
+
+            gap: 13px;
+
+            padding: 12px 14px;
+
+            margin: 5px 0;
+
+            border-radius: 9px;
+
+            color: #555;
+
+            text-decoration: none;
+
+            font-size: 14px;
+
+            transition: 0.2s;
+        }
+
+        .sidebar a:hover {
+            background: #f0efff;
+            color: #6366f1;
+        }
+
+        .sidebar a.active {
+            background: #6366f1;
+            color: white;
+        }
+
+        .sidebar i {
+            font-size: 16px;
+        }
+
+        /* ================= MAIN ================= */
+
+        .main {
+            margin-left: 250px;
+
+            min-height: 100vh;
+
+            padding: 30px 35px;
+        }
+
+        /* ================= TOP ================= */
+
+        .top-header {
+            display: flex;
+
+            justify-content: space-between;
+            align-items: center;
+
+            margin-bottom: 28px;
+        }
+
+        .top-header h2 {
+            margin: 0;
+
+            font-size: 25px;
+            font-weight: 600;
+
+            color: #1f2937;
+        }
+
+        .top-header p {
+            margin: 5px 0 0;
+
+            font-size: 13px;
+
+            color: #9ca3af;
+        }
+
+        .profile-avatar {
+            width: 42px;
+            height: 42px;
+
+            background: #6366f1;
+            color: white;
+
+            border-radius: 50%;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            font-weight: 600;
+
+            font-size: 15px;
+        }
+
+        /* ================= PROFILE CARD ================= */
+
+        .profile-card {
+            background: white;
+
+            border-radius: 16px;
+
+            border: 1px solid #e5e7eb;
+
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.04);
+
+            overflow: hidden;
+        }
+
+        .profile-cover {
+            height: 145px;
+
+            background: linear-gradient(
+                135deg,
+                #6366f1,
+                #818cf8
+            );
+
+            position: relative;
+        }
+
+        .large-avatar {
+            position: absolute;
+
+            left: 35px;
+            bottom: -42px;
+
+            width: 85px;
+            height: 85px;
+
+            background: white;
+
+            border: 5px solid white;
+
+            border-radius: 50%;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            color: #6366f1;
+
+            font-size: 30px;
+            font-weight: 600;
+
+            box-shadow: 0 3px 12px rgba(0,0,0,0.12);
+        }
+
+        .profile-content {
+            padding: 58px 35px 30px;
+        }
+
+        .profile-name {
+            margin: 0;
+
+            font-size: 22px;
+            font-weight: 600;
+
+            color: #1f2937;
+        }
+
+        .profile-role {
+            margin-top: 5px;
+
+            color: #6366f1;
+
+            font-size: 13px;
+            font-weight: 500;
+        }
+
+        /* ================= INFO ================= */
+
+        .info-section {
+            margin-top: 30px;
+        }
+
+        .section-title {
+            font-size: 15px;
+
+            font-weight: 600;
+
+            color: #1f2937;
+
+            margin-bottom: 15px;
+        }
+
+        .info-grid {
+            display: grid;
+
+            grid-template-columns: repeat(2, 1fr);
+
+            gap: 15px;
+        }
+
+        .info-box {
+            background: #f9fafb;
+
+            border: 1px solid #eef0f4;
+
+            border-radius: 10px;
+
+            padding: 15px;
+        }
+
+        .info-label {
+            font-size: 11px;
+
+            color: #9ca3af;
+
+            margin-bottom: 5px;
+        }
+
+        .info-value {
+            font-size: 13px;
+
+            color: #374151;
+
+            font-weight: 500;
+        }
+
+        .info-value i {
+            color: #6366f1;
+
+            margin-right: 5px;
+        }
+
+        /* ================= SKILLS ================= */
+
+        .skills {
+            display: flex;
+
+            flex-wrap: wrap;
+
+            gap: 8px;
+        }
+
+        .skill {
+            background: #eef2ff;
+
+            color: #6366f1;
+
+            padding: 6px 12px;
+
+            border-radius: 20px;
+
+            font-size: 11px;
+
+            font-weight: 500;
+        }
+
+        .no-skills {
+            color: #9ca3af;
+
+            font-size: 12px;
+        }
+
+        /* ================= BUTTON ================= */
+
+        .edit-btn {
+            display: inline-flex;
+
+            align-items: center;
+
+            gap: 7px;
+
+            margin-top: 25px;
+
+            padding: 10px 18px;
+
+            border: none;
+
+            border-radius: 8px;
+
+            background: #6366f1;
+
+            color: white;
+
+            text-decoration: none;
+
+            font-size: 12px;
+
+            transition: 0.2s;
+        }
+
+        .edit-btn:hover {
+            background: #4f46e5;
+
+            color: white;
+        }
+
+        /* ================= MOBILE ================= */
+
+        @media (max-width: 768px) {
+
+            .sidebar {
+                width: 70px;
+                padding: 15px 8px;
+            }
+
+            .logo h4,
+            .menu-title,
+            .sidebar a {
+                font-size: 0;
+            }
+
+            .sidebar a {
+                justify-content: center;
+            }
+
+            .sidebar a i {
+                font-size: 18px;
+            }
+
+            .main {
+                margin-left: 70px;
+
+                padding: 20px;
+            }
+
+            .info-grid {
+                grid-template-columns: 1fr;
+            }
+
+        }
+
+
+.success-text {
+    color: #198754;
+    background: transparent;
+    border: none;
+    padding: 0;
+    margin: 10px 0;
+    font-size: 14px;
+    font-weight: 500;
+    transition: opacity 0.4s ease;
+}
+
+.success-text.hide-message {
+    opacity: 0;
+}
+
+
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<!-- ================= SIDEBAR ================= -->
+
+<div class="sidebar">
+
+    <div class="logo">
+
+        <div class="logo-icon">
+            <i class="bi bi-send-fill"></i>
+        </div>
+
+        <h4>Freelancer Hub</h4>
+
+    </div>
+
+
+    <div class="menu-title">
+        Menu
+    </div>
+
+
+    <a href="{{ url_for('freelancer_dashboard') }}">
+
+        <i class="bi bi-grid-fill"></i>
+
+        Dashboard
+
+    </a>
+
+
+    <a href="{{ url_for('find_projects') }}">
+
+        <i class="bi bi-search"></i>
+
+        Find Projects
+
+    </a>
+
+
+    <a href="{{ url_for('my_applications') }}">
+
+        <i class="bi bi-file-earmark-text"></i>
+
+        My Applications
+
+    </a>
+
+
+    <a href="{{ url_for('hired_projects') }}">
+
+        <i class="bi bi-briefcase-fill"></i>
+
+        Hired Projects
+
+    </a>
+
+
+    <a href="/freelancer-messages">
+
+        <i class="bi bi-chat-dots-fill"></i>
+
+        Messages
+
+    </a>
+
+
+    <div class="menu-title">
+        Account
+    </div>
+
+
+    <a href="/freelancer-profile" class="active">
+
+        <i class="bi bi-person-fill"></i>
+
+        Profile
+
+    </a>
+
+
+    <a href="/freelancer-settings">
+
+        <i class="bi bi-gear-fill"></i>
+
+        Settings
+
+    </a>
+
+</div>
+
+
+<!-- ================= MAIN ================= -->
+
+<div class="main">
+
+
+    <div class="top-header">
+
+        <div>
+
+            <h2>
+                My Profile
+            </h2>
+
+            <p>
+                View your freelancer account information
+            </p>
+
+        </div>
+
+
+        <div class="profile-avatar">
+
+            {{ freelancer.name[0]|upper }}
+
+        </div>
+
+    </div>
+
+
+    <!-- ================= PROFILE ================= -->
+
+    <div class="profile-card">
+
+
+        <div class="profile-cover">
+
+            <div class="large-avatar">
+
+                {{ freelancer.name[0]|upper }}
+
+            </div>
+
+        </div>
+
+
+        <div class="profile-content">
+
+
+            <h1 class="profile-name">
+
+                {{ freelancer.name }}
+
+            </h1>
+
+
+            <div class="profile-role">
+
+                <i class="bi bi-briefcase-fill"></i>
+
+                Freelancer
+
+            </div>
+
+
+            <!-- INFO -->
+
+            <div class="info-section">
+
+                <div class="section-title">
+
+                    Personal Information
+
+                </div>
+
+
+                <div class="info-grid">
+
+
+                    <div class="info-box">
+
+                        <div class="info-label">
+                            <i class="bi bi-person"></i>
+                            Full Name
+                        </div>
+
+                        <div class="info-value">
+                            {{ freelancer.name }}
+                        </div>
+
+                    </div>
+
+
+                    <div class="info-box">
+
+                        <div class="info-label">
+                            <i class="bi bi-envelope"></i>
+                            Email Address
+                        </div>
+
+                        <div class="info-value">
+                            {{ freelancer.email }}
+                        </div>
+
+                    </div>
+
+
+                    <div class="info-box">
+
+                        <div class="info-label">
+                            <i class="bi bi-calendar"></i>
+                            Member Since
+                        </div>
+
+                        <div class="info-value">
+
+                            {% if freelancer.created_at %}
+
+                                {{ freelancer.created_at.strftime('%d %b %Y') }}
+
+                            {% else %}
+
+                                Not available
+
+                            {% endif %}
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="info-box">
+
+                        <div class="info-label">
+                            <i class="bi bi-person-badge"></i>
+                            Account Type
+                        </div>
+
+                        <div class="info-value">
+                            Freelancer
+                        </div>
+
+                    </div>
+
+
+                </div>
+
+            </div>
+
+
+            <!-- SKILLS -->
+
+            <div class="info-section">
+
+                <div class="section-title">
+
+                    Skills
+
+                </div>
+
+
+                {% if freelancer.skills %}
+
+                    <div class="skills">
+
+                        {% for skill in freelancer.skills.split(',') %}
+
+                            <span class="skill">
+                                {{ skill.strip() }}
+                            </span>
+
+                        {% endfor %}
+
+                    </div>
+
+                {% else %}
+
+                    <div class="no-skills">
+                        No skills added yet.
+                    </div>
+
+                {% endif %}
+
+
+            </div>
+
+
+<!-- UPI PAYMENT DETAILS -->
+<div class="info-section">
+
+    <div class="section-title">
+        <i class="bi bi-credit-card"></i>
+        UPI Payment Details
+    </div>
+
+{% if message %}
+<div id="successMessage" class="success-text">
+    <i class="bi bi-check-circle"></i> {{ message }}
+</div>
+{% endif %}
+
+
+    {% if error %}
+    <div class="alert alert-danger">
+        {{ error }}
+    </div>
+    {% endif %}
+
+    <form method="POST" action="{{ url_for('freelancer_profile') }}">
+
+        <div class="mb-3">
+            <label for="upi_id" class="form-label">
+                Your UPI ID
+            </label>
+
+            <input
+                type="text"
+                id="upi_id"
+                name="upi_id"
+                class="form-control"
+                placeholder="example@bank"
+                value="{{ freelancer.upi_id or '' }}"
+                maxlength="100"
+                required
+            >
+
+            <small class="text-muted">
+                Clients will use this UPI ID to pay you for hired projects.
+            </small>
+        </div>
+
+        <button type="submit" class="edit-btn">
+            <i class="bi bi-save"></i>
+            Save UPI ID
+        </button>
+
+    </form>
+
+</div>
+
+            <a href="{{ url_for('edit_freelancer_profile') }}"
+   class="edit-btn">
+
+                <i class="bi bi-pencil-fill"></i>
+
+                Edit Profile
+
+            </a>
+
+
+        </div>
+
+    </div>
+
+
+</div>
+
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+    const message = document.getElementById("successMessage");
+
+    if (message) {
+        setTimeout(function () {
+            message.classList.add("hide-message");
+
+            setTimeout(function () {
+                message.remove();
+            }, 400);
+        }, 5000);
+    }
+});
+</script>
+
+
+</body>
+
+</html>

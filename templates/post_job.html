@@ -1,0 +1,689 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Post a Project | Freelancer Hub</title>
+
+
+    <!-- Bootstrap -->
+
+    <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+        rel="stylesheet">
+
+
+    <!-- Bootstrap Icons -->
+
+    <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css"
+        rel="stylesheet">
+
+
+    <!-- Google Font -->
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap"
+        rel="stylesheet">
+
+
+    <style>
+
+        /* =====================================================
+           BODY
+        ===================================================== */
+
+        body {
+
+            background: linear-gradient(
+                135deg,
+                #f7f7fc,
+                #f0efff
+            );
+
+            font-family: 'Poppins', sans-serif;
+
+            min-height: 100vh;
+
+            color: #222;
+
+            padding-bottom: 40px;
+        }
+
+
+
+        /* =====================================================
+           CONTAINER
+        ===================================================== */
+
+        .project-container {
+
+            width: 700px;
+
+            max-width: 95%;
+
+            margin: 50px auto;
+        }
+
+
+
+        /* =====================================================
+           CARD
+        ===================================================== */
+
+        .project-card {
+
+            background: white;
+
+            padding: 35px;
+
+            border-radius: 18px;
+
+            box-shadow:
+                0 10px 35px rgba(0,0,0,0.07);
+
+            border: 1px solid transparent;
+
+            transition:
+                transform 0.35s ease,
+                box-shadow 0.35s ease,
+                border-color 0.35s ease;
+        }
+
+
+        /* CARD HOVER */
+
+        .project-card:hover {
+
+            transform: translateY(-6px);
+
+            box-shadow:
+                0 18px 45px rgba(101,70,245,0.15);
+
+            border-color: rgba(101,70,245,0.15);
+        }
+
+
+
+        /* =====================================================
+           HEADER
+        ===================================================== */
+
+        .project-header {
+
+            margin-bottom: 25px;
+        }
+
+
+        .project-header h2 {
+
+            color: #6546f5;
+
+            font-weight: 600;
+
+            margin-bottom: 5px;
+
+            transition: 0.3s;
+        }
+
+
+        /* HEADER HOVER */
+
+        .project-card:hover .project-header h2 {
+
+            color: #5435dc;
+
+            transform: translateX(3px);
+        }
+
+
+        .project-header h2 i {
+
+            display: inline-block;
+
+            transition: transform 0.35s ease;
+        }
+
+
+        .project-card:hover .project-header h2 i {
+
+            transform: rotate(90deg);
+        }
+
+
+        .project-header p {
+
+            color: #888;
+
+            font-size: 13px;
+
+            margin-bottom: 0;
+        }
+
+
+
+        /* =====================================================
+           LABEL
+        ===================================================== */
+
+        label {
+
+            font-size: 13px;
+
+            font-weight: 500;
+
+            margin-bottom: 7px;
+
+            color: #374151;
+
+            transition: color 0.25s ease;
+        }
+
+
+        .mb-4:focus-within label {
+
+            color: #6546f5;
+        }
+
+
+
+        /* =====================================================
+           INPUT
+        ===================================================== */
+
+        .form-control {
+
+            padding: 12px;
+
+            border-radius: 9px;
+
+            border: 1px solid #ddd;
+
+            font-size: 13px;
+
+            transition:
+                border-color 0.25s ease,
+                box-shadow 0.25s ease,
+                transform 0.25s ease,
+                background 0.25s ease;
+        }
+
+
+        /* INPUT HOVER */
+
+        .form-control:hover {
+
+            border-color: #6d5cd1;
+
+            background: #fcfbff;
+        }
+
+
+        /* INPUT FOCUS */
+
+        .form-control:focus {
+
+            border-color: #6546f5;
+
+            box-shadow:
+                0 0 0 3px rgba(101,70,245,0.10);
+
+            background: white;
+
+            transform: translateY(-1px);
+
+            outline: none;
+        }
+
+
+        /* PLACEHOLDER */
+
+        .form-control::placeholder {
+
+            color: #aaa;
+
+            transition: 0.25s;
+        }
+
+
+        .form-control:focus::placeholder {
+
+            color: #6751d6;
+        }
+
+
+
+        /* =====================================================
+           TEXTAREA
+        ===================================================== */
+
+        textarea {
+
+            resize: none;
+
+            height: 130px !important;
+
+            transition:
+                border-color 0.25s ease,
+                box-shadow 0.25s ease,
+                transform 0.25s ease;
+        }
+
+
+
+        /* =====================================================
+           POST BUTTON
+        ===================================================== */
+
+        .post-btn {
+
+            position: relative;
+
+            overflow: hidden;
+
+            background: linear-gradient(
+                135deg,
+                #6546f5,
+                #7c5cff
+            );
+
+            color: white;
+
+            border: none;
+
+            padding: 13px;
+
+            width: 100%;
+
+            border-radius: 9px;
+
+            font-weight: 600;
+
+            margin-top: 10px;
+
+            cursor: pointer;
+
+            transition:
+                transform 0.25s ease,
+                box-shadow 0.25s ease,
+                background 0.25s ease;
+        }
+
+
+        /* BUTTON HOVER */
+
+        .post-btn:hover {
+
+            background: linear-gradient(
+                135deg,
+                #5435dc,
+                #6848f5
+            );
+
+            color: white;
+
+            transform: translateY(-3px);
+
+            box-shadow:
+                0 10px 22px rgba(101,70,245,0.28);
+        }
+
+
+        /* BUTTON CLICK */
+
+        .post-btn:active {
+
+            transform: translateY(0);
+
+            box-shadow:
+                0 5px 12px rgba(101,70,245,0.2);
+        }
+
+
+        /* BUTTON ICON */
+
+        .post-btn i {
+
+            display: inline-block;
+
+            transition:
+                transform 0.3s ease;
+        }
+
+
+        .post-btn:hover i {
+
+            transform:
+                translateX(4px)
+                rotate(-8deg);
+        }
+
+
+
+        /* =====================================================
+           BACK BUTTON
+        ===================================================== */
+
+        .back {
+
+            display: block;
+
+            text-align: center;
+
+            margin-top: 18px;
+
+            color: #6546f5;
+
+            text-decoration: none;
+
+            font-size: 13px;
+
+            transition:
+                color 0.25s ease,
+                transform 0.25s ease;
+        }
+
+
+        .back:hover {
+
+            color: #5435dc;
+
+            transform: translateX(-4px);
+
+            text-decoration: none;
+        }
+
+
+
+        /* =====================================================
+           ROW SPACING
+        ===================================================== */
+
+        .mb-4 {
+
+            transition: transform 0.25s ease;
+        }
+
+
+        .mb-4:focus-within {
+
+            transform: translateY(-1px);
+        }
+
+
+
+        /* =====================================================
+           DATE INPUT
+        ===================================================== */
+
+        input[type="date"] {
+
+            cursor: pointer;
+        }
+
+
+
+        /* =====================================================
+           NUMBER INPUT
+        ===================================================== */
+
+        input[type="number"] {
+
+            cursor: text;
+        }
+
+
+
+        /* =====================================================
+           RESPONSIVE
+        ===================================================== */
+
+        @media (max-width: 768px) {
+
+            .project-container {
+
+                margin: 25px auto;
+            }
+
+            .project-card {
+
+                padding: 25px 20px;
+
+                border-radius: 14px;
+            }
+
+            .project-header h2 {
+
+                font-size: 23px;
+            }
+
+        }
+
+
+
+        /* =====================================================
+           SMALL SCREEN
+        ===================================================== */
+
+        @media (max-width: 480px) {
+
+            .project-card {
+
+                padding: 22px 17px;
+            }
+
+            .project-header h2 {
+
+                font-size: 20px;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<div class="project-container">
+
+
+    <div class="project-card">
+
+
+        <!-- =================================================
+             HEADER
+        ================================================= -->
+
+        <div class="project-header">
+
+            <h2>
+
+                <i class="bi bi-plus-circle"></i>
+
+                Post a New Project
+
+            </h2>
+
+
+            <p>
+
+                Find the right freelancer for your project.
+
+            </p>
+
+        </div>
+
+
+
+        <!-- =================================================
+             FORM
+        ================================================= -->
+
+        <form
+            method="POST"
+            action="{{ url_for('post_job') }}">
+
+
+            <!-- PROJECT NAME -->
+
+            <div class="mb-4">
+
+                <label>
+                    Project Name
+                </label>
+
+
+                <input
+                    type="text"
+                    name="title"
+                    class="form-control"
+                    placeholder="e.g. E-commerce Website Development"
+                    required>
+
+            </div>
+
+
+
+            <!-- DESCRIPTION -->
+
+            <div class="mb-4">
+
+                <label>
+                    Project Description
+                </label>
+
+
+                <textarea
+                    name="description"
+                    class="form-control"
+                    placeholder="Describe your project..."
+                    required></textarea>
+
+            </div>
+
+
+
+            <!-- SKILLS -->
+
+            <div class="mb-4">
+
+                <label>
+                    Required Skills
+                </label>
+
+
+                <input
+                    type="text"
+                    name="skills"
+                    class="form-control"
+                    placeholder="e.g. HTML, CSS, JavaScript, React"
+                    required>
+
+            </div>
+
+
+
+            <!-- BUDGET + DEADLINE -->
+
+            <div class="row">
+
+                <div class="col-md-6 mb-4">
+
+                    <label>
+                        Budget (₹)
+                    </label>
+
+
+                    <input
+                        type="number"
+                        name="budget"
+                        class="form-control"
+                        placeholder="25000"
+                        min="1"
+                        required>
+
+                </div>
+
+
+
+                <div class="col-md-6 mb-4">
+
+                    <label>
+                        Deadline
+                    </label>
+
+
+                    <input
+                        type="date"
+                        name="deadline"
+                        class="form-control"
+                        required>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- =================================================
+                 BUTTON
+            ================================================= -->
+
+            <button
+                type="submit"
+                class="post-btn">
+
+                <i class="bi bi-send"></i>
+
+                Post Project
+
+            </button>
+
+
+        </form>
+
+
+
+        <!-- BACK -->
+
+        <a
+            href="{{ url_for('client_dashboard') }}"
+            class="back">
+
+            ← Back to Dashboard
+
+        </a>
+
+
+    </div>
+
+</div>
+
+
+
+<!-- =====================================================
+     DATE SCRIPT
+===================================================== -->
+<script>
+    const deadline = document.querySelector('input[name="deadline"]');
+
+    const today = new Date();
+    const localToday = new Date(
+        today.getTime() - today.getTimezoneOffset() * 60000
+    ).toISOString().split("T")[0];
+
+    deadline.min = localToday;
+</script>
+
+
+</body>
+
+</html>

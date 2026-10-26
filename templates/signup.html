@@ -1,0 +1,724 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up - Freelancer Hub</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: #f7f7ff;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 25px;
+        }
+
+        .signup-container {
+            width: 100%;
+            max-width: 450px;
+            min-height: 400px;
+            background: white;
+            border-radius: 25px;
+            box-shadow: 0 15px 50px rgba(90, 70, 180, 0.12);
+            display: flex;
+            overflow: hidden;
+        }
+
+        .signup-left {
+            width: 100%;
+            padding: 45px 50px;
+            position: relative;
+        }
+
+        .signup-title {
+            font-size: 30px;
+            font-weight: 700;
+            color: #17213b;
+            margin-bottom: 5px;
+        }
+
+        .signup-subtitle {
+            font-size: 13px;
+            color: #777;
+            margin-bottom: 28px;
+        }
+
+        .plane {
+            position: absolute;
+            right: 20px;
+            top: 25px;
+            color: #6546f5;
+        }
+
+        .plane svg {
+            width: 50px;
+            height: 50px;
+        }
+
+        .dotted-line {
+            position: absolute;
+            right: -5px;
+            top: 65px;
+            width: 80px;
+            height: 120px;
+            border-right: 2px dashed #b9adff;
+            border-radius: 50%;
+        }
+
+        .role-title {
+            font-size: 12px;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        .role-container {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 28px;
+        }
+
+        .role-card {
+            flex: 1;
+            height: 72px;
+            border: 1px solid #e3e3e3;
+            border-radius: 9px;
+            display: flex;
+            align-items: center;
+            padding: 12px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .role-card:hover {
+            border-color: #6546f5;
+        }
+
+        .role-card.active {
+            border: 2px solid #8b73ee;
+            background: #faf9ff;
+        }
+
+        .role-icon {
+            width: 42px;
+            height: 42px;
+            border-radius: 10px;
+            background: #f0edff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-right: 12px;
+            color: #6546f5;
+        }
+
+        .role-icon svg {
+            width: 23px;
+            height: 23px;
+        }
+
+        .role-name {
+            font-size: 13px;
+            font-weight: 600;
+            color: #6546f5;
+        }
+
+        .role-description {
+            font-size: 9px;
+            color: #777;
+            margin-top: 3px;
+        }
+
+        .form-row {
+            display: flex;
+            gap: 20px;
+        }
+
+        .form-group {
+            flex: 1;
+            margin-bottom: 17px;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 11px;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 8px;
+        }
+
+        .input-box {
+            height: 43px;
+            border: 1px solid #e2e2e2;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            padding: 0 12px;
+            transition: 0.3s;
+        }
+
+        .input-box:focus-within {
+            border-color: #6546f5;
+            box-shadow: 0 0 0 3px rgba(101, 70, 245, 0.08);
+        }
+
+        .input-box svg {
+            width: 17px;
+            height: 17px;
+            color: #929292;
+            margin-right: 9px;
+            flex-shrink: 0;
+        }
+
+        .input-box input {
+            width: 100%;
+            border: none;
+            outline: none;
+            font-family: 'Poppins', sans-serif;
+            font-size: 10px;
+            color: #333;
+        }
+
+        .input-box input::placeholder {
+            color: #999;
+        }
+
+        .terms {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin: 10px 0 20px;
+        }
+
+        .terms input {
+            width: 15px;
+            height: 15px;
+            accent-color: #6546f5;
+        }
+
+        .terms label {
+            font-size: 10px;
+            color: #777;
+        }
+
+        .terms a {
+            color: #6546f5;
+            font-weight: 500;
+            text-decoration: none;
+        }
+
+        .create-btn {
+            width: 100%;
+            height: 45px;
+            border: none;
+            border-radius: 8px;
+            background: linear-gradient(90deg, #5941ed, #8052e9);
+            color: white;
+            font-family: 'Poppins', sans-serif;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            box-shadow: 0 8px 20px rgba(101, 70, 245, 0.2);
+            transition: 0.3s;
+        }
+
+        .create-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(101, 70, 245, 0.3);
+        }
+
+        .or {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin: 22px 0;
+            color: #999;
+            font-size: 10px;
+        }
+
+        .or::before,
+        .or::after {
+            content: "";
+            height: 1px;
+            background: #e8e8e8;
+            flex: 1;
+        }
+
+        .social-buttons {
+            display: flex;
+            gap: 15px;
+        }
+
+        .social-btn {
+            flex: 1;
+            height: 43px;
+            background: white;
+            border: 1px solid #e1e1e1;
+            border-radius: 8px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+            font-family: 'Poppins', sans-serif;
+            font-size: 11px;
+            font-weight: 500;
+            color: #333;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .social-btn:hover {
+            border-color: #6546f5;
+            transform: translateY(-2px);
+        }
+
+        .social-btn svg {
+            width: 18px;
+            height: 18px;
+        }
+
+        .login-text {
+            text-align: center;
+            margin-top: 30px;
+            font-size: 10px;
+            color: #777;
+        }
+
+        .login-text a {
+            color: #6546f5;
+            font-weight: 600;
+            text-decoration: none;
+        }
+
+        @media(max-width: 800px) {
+            .signup-container {
+                max-width: 450px;
+            }
+        }
+
+        @media(max-width: 520px) {
+            body {
+                padding: 10px;
+            }
+
+            .signup-left {
+                padding: 35px 25px;
+            }
+
+            .form-row {
+                flex-direction: column;
+                gap: 0;
+            }
+
+            .role-container {
+                gap: 8px;
+            }
+
+            .role-card {
+                padding: 8px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="signup-container">
+
+    <div class="signup-left">
+
+        <!-- Paper Plane -->
+        <div class="plane">
+            <svg viewBox="0 0 24 24" fill="none">
+                <path d="M22 2L11 13"
+                      stroke="currentColor"
+                      stroke-width="2"
+                      stroke-linecap="round"/>
+
+                <path d="M22 2L15 22L11 13L2 9L22 2Z"
+                      fill="currentColor"/>
+            </svg>
+        </div>
+
+        <div class="dotted-line"></div>
+
+        <h1 class="signup-title">Sign Up</h1>
+
+        <p class="signup-subtitle">
+            Create your account to get started.
+        </p>
+
+
+        <!-- ================= SIGNUP FORM ================= -->
+
+        <form method="POST" action="{{ url_for('signup') }}">
+
+            <!-- ROLE -->
+
+            <div class="role-title">I am a</div>
+
+<div class="role-container">
+
+    <div class="role-card active" data-role="Freelancer">
+
+        <div class="role-icon">
+            <svg viewBox="0 0 24 24" fill="none">
+                <circle cx="12" cy="8" r="3.5"
+                        stroke="currentColor"
+                        stroke-width="1.8"/>
+
+                <path d="M5 20c.5-4 3-6 7-6s6.5 2 7 6"
+                      stroke="currentColor"
+                      stroke-width="1.8"
+                      stroke-linecap="round"/>
+            </svg>
+        </div>
+
+        <div>
+            <div class="role-name">
+                Freelancer
+            </div>
+
+            <div class="role-description">
+                I want to work
+            </div>
+        </div>
+
+    </div>
+
+
+    <div class="role-card" data-role="Client">
+
+        <div class="role-icon">
+
+            <svg viewBox="0 0 24 24" fill="none">
+
+                <rect x="4" y="7"
+                      width="16"
+                      height="13"
+                      rx="2"
+                      stroke="#8b8b8b"
+                      stroke-width="1.8"/>
+
+                <path d="M9 7V5h6v2"
+                      stroke="#8b8b8b"
+                      stroke-width="1.8"/>
+
+            </svg>
+
+        </div>
+
+        <div>
+
+            <div class="role-name" style="color:#555;">
+                Client
+            </div>
+
+            <div class="role-description">
+                I want to hire
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<input type="hidden"
+       name="role"
+       id="role"
+       value="Freelancer">
+
+            <!-- FULL NAME + EMAIL -->
+
+            <div class="form-row">
+
+                <div class="form-group">
+
+                    <label>Full Name</label>
+
+                    <div class="input-box">
+
+                        <svg viewBox="0 0 24 24" fill="none">
+
+                            <circle cx="12" cy="8" r="3"
+                                    stroke="currentColor"
+                                    stroke-width="1.8"/>
+
+                            <path d="M5 20c.5-4 3-6 7-6s6.5 2 7 6"
+                                  stroke="currentColor"
+                                  stroke-width="1.8"/>
+
+                        </svg>
+
+                        <input type="text"
+                               name="name"
+                               placeholder="Enter your name"
+                               required>
+
+                    </div>
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>Email Address</label>
+
+                    <div class="input-box">
+
+                        <svg viewBox="0 0 24 24" fill="none">
+
+                            <rect x="3" y="5"
+                                  width="18"
+                                  height="14"
+                                  rx="2"
+                                  stroke="currentColor"
+                                  stroke-width="1.8"/>
+
+                            <path d="M4 7l8 6 8-6"
+                                  stroke="currentColor"
+                                  stroke-width="1.8"/>
+
+                        </svg>
+
+                        <input type="email"
+                               name="email"
+                               placeholder="Enter your email"
+                               required>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <!-- SKILLS -->
+
+<div class="form-group" id="skills-group">
+
+    <label>Skills</label>
+
+    <div class="input-box">
+
+        <input type="text"
+               name="skills"
+               id="skills"
+               placeholder="e.g. Java, Python, Web Development">
+
+    </div>
+
+</div>
+
+
+            <!-- PASSWORD -->
+
+            <div class="form-row">
+
+                <div class="form-group">
+
+                    <label>Password</label>
+
+                    <div class="input-box">
+
+                        <svg viewBox="0 0 24 24" fill="none">
+
+                            <rect x="5" y="10"
+                                  width="14"
+                                  height="10"
+                                  rx="2"
+                                  stroke="currentColor"
+                                  stroke-width="1.8"/>
+
+                            <path d="M8 10V7a4 4 0 018 0v3"
+                                  stroke="currentColor"
+                                  stroke-width="1.8"/>
+
+                        </svg>
+
+                        <input type="password"
+                               name="password"
+                               id="password"
+                               placeholder="Create password"
+                               required>
+
+                    </div>
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>Confirm Password</label>
+
+                    <div class="input-box">
+
+                        <svg viewBox="0 0 24 24" fill="none">
+
+                            <rect x="5" y="10"
+                                  width="14"
+                                  height="10"
+                                  rx="2"
+                                  stroke="currentColor"
+                                  stroke-width="1.8"/>
+
+                            <path d="M8 10V7a4 4 0 018 0v3"
+                                  stroke="currentColor"
+                                  stroke-width="1.8"/>
+
+                        </svg>
+
+                        <input type="password"
+                               name="confirm_password"
+                               id="confirm_password"
+                               placeholder="Confirm password"
+                               required>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- TERMS -->
+
+            <div class="terms">
+
+                <input type="checkbox"
+                       id="terms"
+                       name="terms"
+                       required>
+
+                <label for="terms">
+
+                    I agree to the
+                    <a href="#">Terms & Conditions</a>
+                    and
+                    <a href="#">Privacy Policy</a>
+
+                </label>
+
+            </div>
+
+
+            <!-- CREATE ACCOUNT -->
+
+            <button type="submit" class="create-btn">
+                Create Account
+            </button>
+
+        </form>
+
+
+        <!-- OR -->
+
+        <div class="or">
+            or sign up with
+        </div>
+
+
+        <!-- GOOGLE + FACEBOOK -->
+
+        <div class="social-buttons">
+
+            <!-- GOOGLE -->
+            <button type="button" class="social-btn">
+
+                <svg viewBox="0 0 24 24">
+
+                    <path fill="#4285F4"
+                          d="M21.35 12.23c0-.78-.07-1.53-.22-2.23H12v4.22h5.24a4.48 4.48 0 01-1.94 2.94v2.44h3.14c1.84-1.7 2.91-4.2 2.91-7.37z"/>
+
+                    <path fill="#34A853"
+                          d="M12 21.5c2.63 0 4.84-.87 6.45-2.36l-3.14-2.44c-.87.58-1.98.93-3.31.93-2.54 0-4.69-1.72-5.46-4.03H3.3v2.52A9.74 9.74 0 0012 21.5z"/>
+
+                    <path fill="#FBBC05"
+                          d="M6.54 13.6A5.85 5.85 0 016.23 12c0-.56.11-1.1.31-1.6V7.88H3.3A9.74 9.74 0 002.25 12c0 1.57.38 3.05 1.05 4.12l3.24-2.52z"/>
+
+                    <path fill="#EA4335"
+                          d="M12 6.37c1.43 0 2.71.49 3.72 1.45l2.79-2.79C16.84 3.48 14.63 2.5 12 2.5a9.74 9.74 0 00-8.7 5.38l3.24 2.52C7.31 8.09 9.46 6.37 12 6.37z"/>
+
+                </svg>
+
+                Google
+
+            </button>
+
+
+            <!-- FACEBOOK -->
+            <button type="button" class="social-btn">
+
+                <svg viewBox="0 0 24 24">
+
+                    <circle cx="12" cy="12" r="10"
+                            fill="#1877F2"/>
+
+                    <path d="M13.5 8.2h1.9V5.1c-.33-.04-1.47-.14-2.8-.14-2.78 0-4.68 1.7-4.68 4.83v2.7H5v3.47h2.92V21h3.58v-5.04h2.96l.47-3.47H11.5V10.1c0-1 .27-1.7 1.99-1.9z"
+                          fill="white"/>
+
+                </svg>
+
+                Facebook
+
+            </button>
+
+        </div>
+
+
+        <!-- LOGIN -->
+
+        <div class="login-text">
+
+            Already have an account?
+
+            <a href="/login">
+                Login
+            </a>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- ================= ROLE SELECTION ================= -->
+
+<script>
+
+const roleCards = document.querySelectorAll(".role-card");
+const roleInput = document.getElementById("role");
+
+roleCards.forEach(card => {
+
+    card.addEventListener("click", function () {
+
+        roleCards.forEach(item => {
+            item.classList.remove("active");
+        });
+
+        this.classList.add("active");
+
+        roleInput.value = this.dataset.role;
+
+    });
+
+});
+
+</script>
+
+</script>
+
+</body>
+</html>

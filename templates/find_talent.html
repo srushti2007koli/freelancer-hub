@@ -1,0 +1,230 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Find Talent | Freelancer Hub</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+
+    <style>
+        body {
+            background: #f8f9ff;
+            color: #24243a;
+            font-family: Arial, sans-serif;
+        }
+        .navbar { min-height: 78px; }
+        .logo {
+            width: 45px; height: 45px;
+            object-fit: cover; margin-right: 10px;
+        }
+        .brand-title { font-size: 22px; font-weight: 700; }
+        .brand-tagline { font-size: 11px; color: #777; }
+        .page-hero {
+            padding: 135px 0 45px;
+            background: linear-gradient(120deg, #f0ebff, #fff);
+        }
+        .page-hero h1 { font-size: 42px; font-weight: 800; }
+        .page-hero h1 span { color: #6546f5; }
+        .talent-card {
+            background: white;
+            border: 1px solid #eeeafc;
+            border-radius: 16px;
+            padding: 25px;
+            height: 100%;
+            transition: .2s;
+        }
+        .talent-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 10px 28px #29205b12;
+        }
+        .avatar {
+            width: 68px; height: 68px;
+            display: grid; place-items: center;
+            border-radius: 50%;
+            background: #eee8ff;
+            color: #6546f5;
+            font-size: 27px;
+            font-weight: bold;
+        }
+        .skill {
+            display: inline-block;
+            background: #f0edff;
+            color: #6546f5;
+            padding: 5px 10px;
+            margin: 4px 3px 4px 0;
+            border-radius: 20px;
+            font-size: 12px;
+        }
+        .btn-primary {
+            background: #6546f5;
+            border-color: #6546f5;
+        }
+        .btn-primary:hover {
+            background: #5033d6;
+            border-color: #5033d6;
+        }
+        footer {
+            background: white;
+            padding: 25px 0;
+            margin-top: 55px;
+        }
+    </style>
+</head>
+
+<body>
+
+<nav class="navbar navbar-expand-lg bg-white shadow-sm fixed-top">
+    <div class="container">
+        <a class="navbar-brand d-flex align-items-center"
+           href="{{ url_for('home') }}">
+            <img src="{{ url_for('static', filename='icon.jpeg') }}"
+                 class="logo" alt="Logo">
+            <div>
+                <div class="brand-title">
+                    <span class="text-primary">Freelancer</span>
+                    <span class="text-dark">Hub</span>
+                </div>
+                <div class="brand-tagline">Work • Connect • Grow</div>
+            </div>
+        </a>
+
+        <button class="navbar-toggler" type="button"
+                data-bs-toggle="collapse" data-bs-target="#menu">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="menu">
+            <ul class="navbar-nav mx-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ url_for('home') }}">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ url_for('find_work_page') }}">Find Work</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active" href="{{ url_for('find_talent_page') }}">Find Talent</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ url_for('projects_page') }}">Projects</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ url_for('how_it_works_page') }}">How It Works</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ url_for('pricing_page') }}">Pricing</a>
+                </li>
+            </ul>
+
+            <div class="d-flex align-items-center">
+                <a href="{{ url_for('login') }}"
+                   class="btn btn-outline-primary me-2">Login</a>
+                <a href="{{ url_for('signup') }}"
+                   class="btn btn-primary px-4">Sign Up</a>
+            </div>
+        </div>
+    </div>
+</nav>
+
+<section class="page-hero">
+    <div class="container">
+        <span class="badge rounded-pill mb-3"
+              style="background:#e8e1ff;color:#6546f5;">
+            <i class="bi bi-people"></i> Meet our community
+        </span>
+
+        <h1>Find Great <span>Talent.</span></h1>
+        <p class="text-secondary mt-3">
+            Discover skilled freelancers and find the right people for your projects.
+        </p>
+
+        <form method="GET" action="{{ url_for('find_talent_page') }}"
+              class="bg-white rounded-4 shadow-sm p-3 mt-4">
+            <div class="row g-3">
+                <div class="col-md-9">
+                    <input type="text" name="search"
+                           value="{{ request.args.get('search', '') }}"
+                           class="form-control form-control-lg"
+                           placeholder="Search freelancer name or skills">
+                </div>
+                <div class="col-md-3">
+                    <button class="btn btn-primary btn-lg w-100" type="submit">
+                        <i class="bi bi-search"></i> Search
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
+</section>
+
+<section class="py-5">
+    <div class="container">
+        <h2 class="fw-bold mb-1">Explore Freelancers</h2>
+        <p class="text-secondary mb-4">
+            Connect with professionals who can help bring your ideas to life.
+        </p>
+
+        <div class="row g-4">
+            {% if freelancers %}
+                {% for freelancer in freelancers %}
+                <div class="col-lg-4 col-md-6">
+                    <div class="talent-card">
+                        <div class="d-flex align-items-center gap-3 mb-3">
+                            <div class="avatar">
+                                {{ freelancer.name[0]|upper if freelancer.name else 'F' }}
+                            </div>
+                            <div>
+                                <h5 class="fw-bold mb-1">{{ freelancer.name }}</h5>
+                                <div class="small text-secondary">
+                                    <i class="bi bi-person-check"></i> Freelancer
+                                </div>
+                            </div>
+                        </div>
+
+                        <p class="text-secondary small">
+                            {{ freelancer.skills or 'Skills not added yet' }}
+                        </p>
+
+                        {% if freelancer.skills %}
+                            {% for skill in freelancer.skills.split(',') %}
+                                <span class="skill">{{ skill.strip() }}</span>
+                            {% endfor %}
+                        {% endif %}
+
+                        <hr>
+
+                        <a href="{{ url_for('hire_freelancer', freelancer_id=freelancer.id) }}"
+                           class="btn btn-primary w-100">
+                            <i class="bi bi-person-plus"></i> Hire Freelancer
+                        </a>
+                    </div>
+                </div>
+                {% endfor %}
+            {% else %}
+                <div class="col-12">
+                    <div class="talent-card text-center py-5">
+                        <i class="bi bi-people display-4"
+                           style="color:#6546f5;"></i>
+                        <h4 class="mt-3">No Freelancers Found</h4>
+                        <p class="text-secondary">
+                            Try another search or check back later.
+                        </p>
+                    </div>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+</section>
+
+<footer>
+    <div class="container text-center text-secondary">
+        © 2026 Freelancer Hub · Work • Connect • Grow
+    </div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

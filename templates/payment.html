@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Payments - Freelancer Hub</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+          rel="stylesheet">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css"
+          rel="stylesheet">
+
+    <style>
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #f6f7fb;
+        }
+
+        .sidebar {
+            width: 250px;
+            height: 100vh;
+            position: fixed;
+            left: 0;
+            top: 0;
+            background: #3342d3;
+            color: white;
+            padding: 25px 15px;
+        }
+
+        .logo {
+            text-align: center;
+            margin-bottom: 35px;
+        }
+
+        .logo i {
+            font-size: 30px;
+        }
+
+        .logo h4 {
+            margin: 8px 0 2px;
+            font-weight: 700;
+        }
+
+        .logo p {
+            font-size: 12px;
+            opacity: 0.8;
+        }
+
+        .sidebar a {
+            display: block;
+            color: white;
+            text-decoration: none;
+            padding: 12px 15px;
+            margin-bottom: 7px;
+            border-radius: 8px;
+        }
+
+        .sidebar a:hover,
+        .sidebar a.active {
+            background: rgba(255,255,255,0.18);
+        }
+
+        .sidebar i {
+            margin-right: 10px;
+        }
+
+        .main {
+            margin-left: 250px;
+            padding: 30px;
+        }
+
+        .top-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+
+        .top-header h2 {
+            font-weight: 700;
+            margin: 0;
+        }
+
+        .user-box {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: #6366f1;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+        }
+
+        .payment-card {
+            background: white;
+            border-radius: 12px;
+            padding: 25px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+
+        .table th {
+            color: #555;
+            font-size: 14px;
+        }
+
+        .table td {
+            vertical-align: middle;
+        }
+
+        .status-paid {
+            background: #dcfce7;
+            color: #15803d;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .status-pending {
+            background: #fef3c7;
+            color: #b45309;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .empty {
+            text-align: center;
+            padding: 50px;
+            color: #888;
+        }
+
+        @media (max-width: 768px) {
+
+    .sidebar {
+        position: relative;
+        width: 100%;
+        height: auto;
+    }
+
+    .main {
+        margin-left: 0;
+        padding: 18px;
+    }
+
+    .top-header {
+        flex-wrap: wrap;
+        gap: 12px;
+    }
+
+    .payment-card {
+        padding: 16px;
+    }
+
+    .empty {
+        padding: 30px 10px;
+    }
+}
+
+    </style>
+</head>
+
+<body>
+
+<!-- SIDEBAR -->
+
+<div class="sidebar">
+
+    <div class="logo">
+
+        <i class="bi bi-briefcase-fill"></i>
+
+        <h4>Freelancer Hub</h4>
+
+        <p>Work • Connect • Grow</p>
+
+    </div>
+
+    <a href="{{ url_for('client_dashboard') }}">
+        <i class="bi bi-grid"></i>
+        Dashboard
+    </a>
+
+    <a href="{{ url_for('post_job') }}">
+        <i class="bi bi-plus-circle"></i>
+        Post a Project
+    </a>
+
+    <a href="{{ url_for('find_freelancer') }}">
+        <i class="bi bi-people"></i>
+        Find Freelancers
+    </a>
+
+    <a href="{{ url_for('hired_freelancers') }}">
+        <i class="bi bi-person-check"></i>
+        Hired Freelancers
+    </a>
+
+    <a href="{{ url_for('client_messages') }}">
+        <i class="bi bi-chat-dots"></i>
+        Messages
+    </a>
+
+    <a href="{{ url_for('payments') }}" class="active">
+        <i class="bi bi-credit-card"></i>
+        Payments
+    </a>
+
+    <a href="{{ url_for('reports') }}">
+        <i class="bi bi-bar-chart"></i>
+        Reports
+    </a>
+
+    <a href="{{ url_for('client_profile') }}">
+        <i class="bi bi-person"></i>
+        Profile
+    </a>
+
+    <a href="{{ url_for('client_settings') }}">
+        <i class="bi bi-gear"></i>
+        Settings
+    </a>
+
+</div>
+
+
+<!-- MAIN CONTENT -->
+
+<div class="main">
+<!-- BACK TO DASHBOARD -->
+
+<div class="mb-3">
+</div>
+    <div class="top-header">
+
+        <h2>Payments</h2>
+
+        <div class="user-box">
+
+            <span>{{ session.get("user_name", "Client") }}</span>
+
+            <div class="avatar">
+                {{ session.get("user_name", "C")[0]|upper }}
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <div class="payment-card">
+
+        <h5 class="mb-4">
+            <i class="bi bi-credit-card me-2"></i>
+            Payment History
+        </h5>
+
+
+        {% if payments %}
+
+        <div class="table-responsive">
+
+            <table class="table table-hover">
+
+                <thead>
+
+                    <tr>
+
+                        <th>Project</th>
+
+                        <th>Freelancer</th>
+
+                        <th>Amount</th>
+
+                        <th>Status</th>
+
+                        <th>Payment Date</th>
+
+                    </tr>
+
+                </thead>
+
+
+                <tbody>
+
+                {% for payment in payments %}
+
+                    <tr>
+
+                        <td>
+                            <strong>
+                                {{ payment.job_title or "Not Available" }}
+                            </strong>
+                        </td>
+
+                        <td>
+                            {{ payment.freelancer_name or "Not Available" }}
+                        </td>
+
+                        <td>
+                            ₹{{ "%.2f"|format(payment.amount) }}
+                        </td>
+
+                        <td>
+
+                           {% if payment.status|lower in ["paid", "completed"] %}
+
+    <span class="status-paid">
+        {{ payment.status }}
+    </span>
+
+{% else %}
+
+                                <span class="status-pending">
+                                    {{ payment.status }}
+                                </span>
+
+                            {% endif %}
+
+                        </td>
+
+                        <td>
+    {{ payment.payment_date.strftime('%d-%m-%Y %I:%M %p') if payment.payment_date else 'N/A' }}
+</td>
+
+                    </tr>
+
+                {% endfor %}
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+ <!-- BACK TO DASHBOARD -->
+
+<div class="mb-3">
+    <a href="{{ url_for('client_dashboard') }}"
+       class="btn btn-outline-secondary btn-sm">
+
+        <i class="bi bi-arrow-left me-1"></i>
+        Back to Dashboard
+
+    </a>
+
+        {% else %}
+
+        <div class="empty">
+
+            <i class="bi bi-credit-card"
+               style="font-size: 45px;"></i>
+
+            <h5 class="mt-3">
+                No Payments Yet
+            </h5>
+
+            <p>
+                Your payment history will appear here.
+            </p>
+
+        </div>
+
+        {% endif %}
+
+    </div>
+
+</div>
+
+</body>
+</html>

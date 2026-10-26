@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Messages | Freelancer Hub</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+          rel="stylesheet">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css"
+          rel="stylesheet">
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap"
+          rel="stylesheet">
+
+    <style>
+
+        body {
+            background: #f5f7fb;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .page-container {
+            max-width: 850px;
+            margin: 40px auto;
+        }
+
+        .page-header {
+            background: #6366f1;
+            color: white;
+            padding: 22px 25px;
+            border-radius: 15px;
+            margin-bottom: 25px;
+        }
+
+        .page-header h3 {
+            margin: 0;
+            font-size: 22px;
+            font-weight: 600;
+        }
+
+        .page-header p {
+            margin: 5px 0 0;
+            font-size: 13px;
+            opacity: 0.9;
+        }
+
+        .conversation-card {
+            background: white;
+            border: 1px solid #e5e7eb;
+            border-radius: 15px;
+            padding: 18px 20px;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            transition: 0.2s ease;
+        }
+
+        .conversation-card:hover {
+            box-shadow: 0 5px 18px rgba(0,0,0,0.06);
+            transform: translateY(-1px);
+        }
+
+        .freelancer-info {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .profile-icon {
+            width: 52px;
+            height: 52px;
+            background: #ede9fe;
+            color: #6366f1;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 22px;
+        }
+
+        .freelancer-name {
+            font-size: 15px;
+            font-weight: 600;
+            color: #111827;
+        }
+
+        .freelancer-email {
+            font-size: 12px;
+            color: #6b7280;
+            margin-top: 3px;
+        }
+
+        .chat-btn {
+            background: #6366f1;
+            color: white;
+            text-decoration: none;
+            padding: 9px 16px;
+            border-radius: 8px;
+            font-size: 12px;
+            font-weight: 500;
+        }
+
+        .chat-btn:hover {
+            background: #4f46e5;
+            color: white;
+        }
+
+        .empty-box {
+            background: white;
+            border: 1px solid #e5e7eb;
+            border-radius: 15px;
+            padding: 55px 20px;
+            text-align: center;
+            color: #6b7280;
+        }
+
+        .empty-box i {
+            font-size: 45px;
+            color: #9ca3af;
+        }
+
+        .back-link {
+            display: inline-block;
+            margin-top: 20px;
+            color: #6366f1;
+            text-decoration: none;
+            font-size: 13px;
+        }
+
+        .back-link:hover {
+            color: #4f46e5;
+        }
+
+        @media (max-width: 600px) {
+
+    .page-container {
+        margin: 20px 12px;
+    }
+
+    .conversation-card {
+        align-items: flex-start;
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    .freelancer-info {
+        min-width: 0;
+        overflow-wrap: anywhere;
+    }
+
+    .chat-btn {
+        display: inline-block;
+        margin-top: 5px;
+    }
+}
+
+    </style>
+
+</head>
+
+<body>
+
+<div class="container page-container">
+
+    <div class="page-header">
+
+        <h3>
+            <i class="bi bi-chat-dots me-2"></i>
+            Messages
+        </h3>
+
+        <p>
+            Your conversations with freelancers
+        </p>
+
+    </div>
+
+
+    {% if freelancers %}
+
+        {% for freelancer in freelancers %}
+
+        <div class="conversation-card">
+
+            <div class="freelancer-info">
+
+                <div class="profile-icon">
+                    <i class="bi bi-person"></i>
+                </div>
+
+                <div>
+
+                    <div class="freelancer-name">
+                        {{ freelancer.name }}
+                    </div>
+
+                    <div class="freelancer-email">
+                        <i class="bi bi-envelope me-1"></i>
+                        {{ freelancer.email }}
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <a href="{{ url_for(
+                        'chat',
+                        freelancer_id=freelancer.freelancer_id
+                    ) }}"
+               class="chat-btn">
+
+                <i class="bi bi-chat-text me-1"></i>
+                Open Chat
+
+            </a>
+
+        </div>
+
+        {% endfor %}
+
+    {% else %}
+
+        <div class="empty-box">
+
+            <i class="bi bi-chat-dots"></i>
+
+            <h5 class="mt-3">
+                No Messages Yet
+            </h5>
+
+            <p class="mb-0">
+                You have no conversations with freelancers yet.
+            </p>
+
+        </div>
+
+    {% endif %}
+
+
+    <!-- BACK TO DASHBOARD -->
+
+<div class="mt-4">
+    <a href="{{ url_for('client_dashboard') }}"
+       class="btn btn-outline-secondary btn-sm">
+
+        <i class="bi bi-arrow-left me-1"></i>
+        Back to Dashboard
+
+    </a>
+</div>
+
+</div>
+
+</body>
+
+</html>

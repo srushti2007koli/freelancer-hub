@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Chat | Freelancer Hub</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+          rel="stylesheet">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css"
+          rel="stylesheet">
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap"
+          rel="stylesheet">
+
+
+    <style>
+
+    * {
+        box-sizing: border-box;
+    }
+
+    body {
+        margin: 0;
+        background: #f3f4f8;
+        font-family: 'Poppins', sans-serif;
+    }
+
+    .chat-container {
+        max-width: 850px;
+        height: 620px;
+        margin: 35px auto 15px;
+        background: white;
+        border-radius: 18px;
+        overflow: hidden;
+        box-shadow: 0 10px 35px rgba(0, 0, 0, 0.08);
+        border: 1px solid #e5e7eb;
+
+        display: flex;
+        flex-direction: column;
+    }
+
+    /* ================= HEADER ================= */
+
+    .chat-header {
+        background: #6366f1;
+        color: white;
+        padding: 17px 22px;
+
+        display: flex;
+        align-items: center;
+
+        flex-shrink: 0;
+    }
+
+    .profile-icon {
+        width: 48px;
+        height: 48px;
+
+        background: white;
+        color: #6366f1;
+
+        border-radius: 50%;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        font-size: 22px;
+        margin-right: 13px;
+    }
+
+    .chat-header h5 {
+        margin: 0;
+        font-size: 16px;
+        font-weight: 600;
+    }
+
+    .chat-header small {
+        display: block;
+        margin-top: 3px;
+        opacity: 0.85;
+        font-size: 11px;
+    }
+
+    /* ================= CHAT BODY ================= */
+
+    .chat-body {
+        flex: 1;
+
+        padding: 22px;
+
+        overflow-y: auto;
+
+        background: #f8f9fc;
+    }
+
+    /* Scrollbar */
+
+    .chat-body::-webkit-scrollbar {
+        width: 6px;
+    }
+
+    .chat-body::-webkit-scrollbar-thumb {
+        background: #c7c9d9;
+        border-radius: 10px;
+    }
+
+    .chat-body::-webkit-scrollbar-track {
+        background: transparent;
+    }
+
+    /* ================= MESSAGE ================= */
+
+    .message {
+        display: flex;
+        margin-bottom: 16px;
+    }
+
+    .message.sent {
+        justify-content: flex-end;
+    }
+
+    .message.received {
+        justify-content: flex-start;
+    }
+
+    .message-box {
+        max-width: 65%;
+
+        padding: 11px 15px;
+
+        border-radius: 14px;
+
+        font-size: 13px;
+        line-height: 1.5;
+
+        word-wrap: break-word;
+    }
+
+    /* Received */
+
+    .received .message-box {
+        background: white;
+
+        color: #374151;
+
+        border: 1px solid #e5e7eb;
+
+        border-bottom-left-radius: 4px;
+
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.03);
+    }
+
+    /* Sent */
+
+    .sent .message-box {
+        background: #6366f1;
+
+        color: white;
+
+        border-bottom-right-radius: 4px;
+
+        box-shadow: 0 3px 8px rgba(99, 102, 241, 0.20);
+    }
+
+    .message-time {
+        display: block;
+
+        font-size: 9px;
+
+        margin-top: 5px;
+
+        opacity: 0.65;
+
+        text-align: right;
+    }
+
+    /* ================= EMPTY CHAT ================= */
+
+    .empty-chat {
+        height: 100%;
+
+        display: flex;
+        flex-direction: column;
+
+        justify-content: center;
+        align-items: center;
+
+        color: #9ca3af;
+    }
+
+    .empty-chat i {
+        font-size: 48px;
+        color: #6366f1;
+    }
+
+    .empty-chat p {
+        margin: 12px 0 3px;
+
+        font-size: 15px;
+        font-weight: 500;
+
+        color: #6b7280;
+    }
+
+    .empty-chat small {
+        font-size: 11px;
+    }
+
+    /* ================= INPUT ================= */
+
+    .chat-input {
+        padding: 15px 18px;
+
+        background: white;
+
+        border-top: 1px solid #e5e7eb;
+
+        flex-shrink: 0;
+    }
+
+    .message-input {
+        height: 44px;
+
+        border: 1px solid #dcdfea;
+
+        border-radius: 10px 0 0 10px;
+
+        font-size: 13px;
+
+        padding-left: 15px;
+    }
+
+    .message-input:focus {
+        border-color: #6366f1;
+
+        box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.10);
+    }
+
+    .send-btn {
+        width: 55px;
+
+        background: #6366f1;
+
+        color: white;
+
+        border: none;
+
+        border-radius: 0 10px 10px 0;
+
+        transition: 0.2s;
+    }
+
+    .send-btn:hover {
+        background: #4f46e5;
+    }
+
+    .send-btn i {
+        font-size: 16px;
+    }
+
+    /* ================= BACK LINK ================= */
+
+    .back-link {
+        display: block;
+
+        width: fit-content;
+
+        margin: 0 auto 25px;
+
+        color: #6366f1;
+
+        text-decoration: none;
+
+        font-size: 13px;
+
+        font-weight: 500;
+    }
+
+    .back-link:hover {
+        color: #4f46e5;
+    }
+
+    /* ================= MOBILE ================= */
+
+    @media (max-width: 768px) {
+
+        .chat-container {
+            height: calc(100vh - 30px);
+
+            margin: 15px;
+
+            border-radius: 14px;
+        }
+
+        .message-box {
+            max-width: 80%;
+        }
+
+        .chat-body {
+            padding: 15px;
+        }
+
+    }
+
+    .online-status {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    margin-top: 4px;
+    font-size: 10px;
+    opacity: 0.9;
+}
+
+.online-dot {
+    width: 7px;
+    height: 7px;
+    background: #22c55e;
+    border-radius: 50%;
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+<div class="container">
+
+    <div class="chat-container">
+
+        <!-- Header -->
+
+        <div class="chat-header">
+
+            <div class="profile-icon">
+                <i class="bi bi-person"></i>
+            </div>
+
+            <div>
+
+                <h5>
+                    {{ freelancer.name }}
+                </h5>
+
+                <small>
+                    {{ freelancer.email }}
+                </small>
+
+                <span class="online-status">
+    <span class="online-dot"></span>
+    Online
+</span>
+
+            </div>
+
+        </div>
+
+
+        <!-- Chat Messages -->
+
+        <div class="chat-body" id="chatBody">
+
+            {% if messages %}
+
+                {% for msg in messages %}
+
+                    {% if msg.sender_id == session['user_id'] %}
+
+                        <div class="message sent">
+
+                            <div class="message-box">
+
+                                {{ msg.message }}
+
+                                <span class="message-time">
+                                    {{ msg.sent_at.strftime('%d %b %Y, %I:%M %p') }}
+                                </span>
+
+                            </div>
+
+                        </div>
+
+                    {% else %}
+
+                        <div class="message received">
+
+                            <div class="message-box">
+
+                                {{ msg.message }}
+
+                                <span class="message-time">
+                                    {{ msg.sent_at.strftime('%d %b %Y, %I:%M %p') }}
+                                </span>
+
+                            </div>
+
+                        </div>
+
+                    {% endif %}
+
+                {% endfor %}
+
+            {% else %}
+
+                <div class="empty-chat">
+
+                    <i class="bi bi-chat-dots fs-1"></i>
+
+                    <p class="mt-2">
+                        No messages yet.
+                    </p>
+
+                    <small>
+                        Start a conversation with {{ freelancer.name }}
+                    </small>
+
+                </div>
+
+            {% endif %}
+
+        </div>
+
+
+        <!-- Message Input -->
+
+        <div class="chat-input">
+
+            <form method="POST">
+
+                <div class="input-group">
+
+                    <input type="text"
+                           name="message"
+                           class="form-control message-input"
+                           placeholder="Type your message..."
+                           required
+                           autocomplete="off">
+
+                    <button type="submit"
+                            class="send-btn">
+
+                        <i class="bi bi-send"></i>
+
+                    </button>
+
+                </div>
+
+            </form>
+
+        </div>
+
+    </div>
+
+
+    <!-- Back -->
+{% if session.get("role", "").lower() == "freelancer" %}
+
+    <a href="{{ url_for('freelancer_messages') }}"
+       class="back-link">
+        <i class="bi bi-arrow-left me-1"></i>
+        Back to Messages
+    </a>
+
+{% else %}
+
+    <a href="{{ url_for('hired_freelancers') }}"
+       class="back-link">
+        <i class="bi bi-arrow-left me-1"></i>
+        Back to Hired Freelancers
+    </a>
+
+{% endif %}
+
+</div>
+<script>
+    // Submit message when Enter is pressed
+    const messageInput = document.querySelector(".message-input");
+
+    if (messageInput) {
+        messageInput.addEventListener("keydown", function(event) {
+            if (event.key === "Enter" && !event.shiftKey) {
+                event.preventDefault();
+
+                if (this.value.trim() !== "") {
+                    this.closest("form").requestSubmit();
+                }
+            }
+        });
+    }
+
+    // Automatically scroll to the latest message
+    const chatBody = document.getElementById("chatBody");
+
+    if (chatBody) {
+        chatBody.scrollTop = chatBody.scrollHeight;
+    }
+</script>
+
+<script>
+
+    // Automatically scroll to latest message
+
+    const chatBody = document.getElementById("chatBody");
+
+    if (chatBody) {
+        chatBody.scrollTop = chatBody.scrollHeight;
+    }
+
+</script>
+
+</body>
+
+</html>

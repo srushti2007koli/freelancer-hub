@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Project Details | Freelancer Hub</title>
+
+    <!-- Bootstrap -->
+    <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+        rel="stylesheet">
+
+    <!-- Bootstrap Icons -->
+    <link
+        rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+
+    <!-- Google Font -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap"
+        rel="stylesheet">
+
+    <style>
+        body {
+            background: #f5f7fb;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .project-card {
+            max-width: 650px;
+            margin: 50px auto;
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            border: 1px solid #e5e7eb;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.07);
+        }
+
+        .card-header-custom {
+            background: #6366f1;
+            color: white;
+            padding: 20px 25px;
+        }
+
+        .card-header-custom h3 {
+            margin: 0;
+            font-size: 22px;
+            font-weight: 600;
+        }
+
+        .card-body {
+            padding: 25px;
+        }
+
+        .detail {
+            margin-bottom: 18px;
+        }
+
+        .label {
+            font-size: 13px;
+            color: #6b7280;
+            margin-bottom: 4px;
+        }
+
+        .value {
+            font-size: 15px;
+            color: #111827;
+            font-weight: 500;
+        }
+
+        .description {
+            background: #f9fafb;
+            padding: 12px 15px;
+            border-radius: 8px;
+            color: #374151;
+            font-size: 14px;
+        }
+
+        .info-box {
+            background: #f9fafb;
+            border: 1px solid #e5e7eb;
+            border-radius: 9px;
+            padding: 13px 15px;
+        }
+
+        .budget {
+            color: #16a34a;
+            font-weight: 600;
+        }
+
+        .back-btn {
+            background: #6366f1;
+            color: white;
+            border: none;
+            padding: 9px 16px;
+            border-radius: 7px;
+            text-decoration: none;
+            font-size: 13px;
+        }
+
+        .back-btn:hover {
+            background: #4f46e5;
+            color: white;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <div class="project-card">
+
+        <!-- Header -->
+        <div class="card-header-custom">
+            <h3>
+                <i class="bi bi-folder2-open me-2"></i>
+                Project Details
+            </h3>
+        </div>
+
+        <!-- Body -->
+        <div class="card-body">
+
+            <!-- Project Name -->
+            <div class="detail">
+                <div class="label">Project Name</div>
+                <div class="value">
+                    {{ job.title }}
+                </div>
+            </div>
+
+            <!-- Description -->
+            <div class="detail">
+                <div class="label">Description</div>
+
+                <div class="description">
+                    {{ job.description }}
+                </div>
+            </div>
+
+            <!-- Skills -->
+            <div class="detail">
+                <div class="label">Required Skills</div>
+
+                <span class="badge bg-light text-dark border">
+                    <i class="bi bi-code-slash"></i>
+                    {{ job.skills or "Not specified" }}
+                </span>
+            </div>
+
+            <!-- Budget & Deadline -->
+            <div class="row g-3">
+
+                <div class="col-md-6">
+
+                    <div class="info-box">
+
+                        <div class="label">
+                            <i class="bi bi-currency-rupee"></i>
+                            Budget
+                        </div>
+
+                        <div class="budget">
+                            ₹{{ "%.2f"|format(job.budget or 0) }}
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <div class="col-md-6">
+
+                    <div class="info-box">
+
+                        <div class="label">
+                            <i class="bi bi-calendar-event"></i>
+                            Deadline
+                        </div>
+
+                        <div class="value">
+                            {{ job.deadline or "No deadline" }}
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <!-- Project ID -->
+            <div class="detail mt-3">
+                <div class="label">Project ID</div>
+
+                <div class="value">
+                    #{{ job.id }}
+                </div>
+            </div>
+
+            <hr>
+
+            <!-- Back -->
+            <a href="{{ url_for('client_dashboard') }}"
+               class="back-btn">
+
+                <i class="bi bi-arrow-left"></i>
+                Back to Dashboard
+
+            </a>
+
+        </div>
+
+    </div>
+
+</div>
+
+</body>
+</html>

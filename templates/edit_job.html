@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+    <title>Edit Job | Freelancer Hub</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap"
+          rel="stylesheet">
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: #f8f8ff;
+        }
+
+        .container {
+            width: 700px;
+            max-width: 95%;
+            margin: 50px auto;
+            background: white;
+            padding: 35px;
+            border-radius: 15px;
+            box-shadow: 0 10px 35px rgba(0,0,0,0.08);
+        }
+
+        h1 {
+            color: #6546f5;
+            margin-bottom: 8px;
+        }
+
+        .subtitle {
+            color: #777;
+            margin-bottom: 25px;
+        }
+
+        label {
+            display: block;
+            margin-top: 17px;
+            margin-bottom: 7px;
+            font-weight: 500;
+        }
+
+        input,
+        textarea {
+            width: 100%;
+            padding: 13px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-family: inherit;
+            outline: none;
+        }
+
+        textarea {
+            height: 120px;
+            resize: none;
+        }
+
+        input:focus,
+        textarea:focus {
+            border-color: #6546f5;
+        }
+
+        .row {
+            display: flex;
+            gap: 15px;
+        }
+
+        .row div {
+            width: 50%;
+        }
+
+        button {
+            width: 100%;
+            margin-top: 25px;
+            padding: 14px;
+            border: none;
+            border-radius: 8px;
+            background: #6546f5;
+            color: white;
+            font-size: 15px;
+            font-family: inherit;
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #5435dc;
+        }
+
+        .back {
+            display: block;
+            margin-top: 15px;
+            text-align: center;
+            color: #6546f5;
+            text-decoration: none;
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+    <h1>Edit Job</h1>
+
+    <p class="subtitle">
+        Update your job details.
+    </p>
+
+    <form method="POST" action="{{ url_for('edit_job', job_id=job.id) }}">
+
+        <label>Job Title</label>
+
+        <input
+            type="text"
+            name="title"
+            value="{{ job.title }}"
+            required
+        >
+
+        <label>Job Description</label>
+
+        <textarea
+            name="description"
+            required
+        >{{ job.description }}</textarea>
+
+        <label>Required Skills</label>
+
+        <input
+            type="text"
+            name="skills"
+            value="{{ job.skills }}"
+            required
+        >
+
+        <div class="row">
+
+            <div>
+
+                <label>Budget (₹)</label>
+
+                <input
+                    type="number"
+                    name="budget"
+                    value="{{ job.budget }}"
+                    min="1"
+                    required
+                >
+
+            </div>
+
+            <div>
+
+                <label>Deadline</label>
+
+                <input
+                    type="date"
+                    name="deadline"
+                    value="{{ job.deadline }}"
+                    required
+                >
+
+            </div>
+
+        </div>
+
+        <button type="submit">
+            Update Job
+        </button>
+
+    </form>
+
+    <a href="{{ url_for('client_dashboard') }}" class="back">
+        ← Back to Dashboard
+    </a>
+
+</div>
+
+</body>
+</html>

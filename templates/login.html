@@ -1,0 +1,627 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Freelancer Hub</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap"
+          rel="stylesheet">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: #f7f7ff;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 25px;
+        }
+
+        .login-container {
+            width: 100%;
+            max-width: 450px;
+            background: white;
+            border-radius: 25px;
+            box-shadow: 0 15px 50px rgba(90, 70, 180, 0.12);
+            overflow: hidden;
+        }
+
+        .login-left {
+            width: 100%;
+            padding: 50px;
+            position: relative;
+        }
+
+        .login-title {
+            font-size: 30px;
+            font-weight: 700;
+            color: #17213b;
+            margin-bottom: 5px;
+        }
+
+        .login-subtitle {
+            font-size: 13px;
+            color: #777;
+            margin-bottom: 35px;
+        }
+
+        /* Paper Plane */
+
+        .plane {
+            position: absolute;
+            right: 20px;
+            top: 25px;
+            color: #6546f5;
+        }
+
+        .plane svg {
+            width: 50px;
+            height: 50px;
+        }
+
+        .dotted-line {
+            position: absolute;
+            right: -5px;
+            top: 65px;
+            width: 80px;
+            height: 120px;
+            border-right: 2px dashed #b9adff;
+            border-radius: 50%;
+        }
+
+        /* Form */
+
+        .form-group {
+            margin-bottom: 22px;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 11px;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 8px;
+        }
+
+        .input-box {
+            height: 45px;
+            border: 1px solid #e2e2e2;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            padding: 0 12px;
+            transition: 0.3s;
+        }
+
+        .input-box:focus-within {
+            border-color: #6546f5;
+            box-shadow: 0 0 0 3px rgba(101, 70, 245, 0.08);
+        }
+
+        .input-box svg {
+            width: 18px;
+            height: 18px;
+            color: #929292;
+            margin-right: 10px;
+            flex-shrink: 0;
+        }
+
+        .input-box input {
+            width: 100%;
+            border: none;
+            outline: none;
+            font-family: 'Poppins', sans-serif;
+            font-size: 11px;
+            color: #333;
+        }
+
+        .input-box input::placeholder {
+            color: #999;
+        }
+
+        /* Password */
+
+        .password-box {
+            position: relative;
+        }
+
+        .password-box input {
+            padding-right: 35px;
+        }
+
+        .show-password {
+            position: absolute;
+            right: 12px;
+            cursor: pointer;
+            color: #888;
+        }
+
+        .show-password svg {
+            margin: 0;
+            width: 17px;
+            height: 17px;
+        }
+
+        /* Remember + Forgot */
+
+        .login-options {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: 5px 0 25px;
+        }
+
+        .remember {
+            display: flex;
+            align-items: center;
+            gap: 7px;
+        }
+
+        .remember input {
+            width: 14px;
+            height: 14px;
+            accent-color: #6546f5;
+        }
+
+        .remember label {
+            font-size: 10px;
+            color: #777;
+        }
+
+        .forgot-password {
+            font-size: 10px;
+            color: #6546f5;
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .forgot-password:hover {
+            text-decoration: underline;
+        }
+
+        /* Login Button */
+
+        .login-btn {
+            width: 100%;
+            height: 45px;
+            border: none;
+            border-radius: 8px;
+            background: linear-gradient(90deg, #5941ed, #8052e9);
+            color: white;
+            font-family: 'Poppins', sans-serif;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            box-shadow: 0 8px 20px rgba(101, 70, 245, 0.2);
+            transition: 0.3s;
+        }
+
+        .login-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(101, 70, 245, 0.3);
+        }
+
+        /* OR */
+
+        .or {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin: 25px 0;
+            color: #999;
+            font-size: 10px;
+        }
+
+        .or::before,
+        .or::after {
+            content: "";
+            height: 1px;
+            background: #e8e8e8;
+            flex: 1;
+        }
+
+        /* Social Buttons */
+
+        .social-buttons {
+            display: flex;
+            gap: 15px;
+        }
+
+        .social-btn {
+            flex: 1;
+            height: 43px;
+            background: white;
+            border: 1px solid #e1e1e1;
+            border-radius: 8px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+            font-family: 'Poppins', sans-serif;
+            font-size: 11px;
+            font-weight: 500;
+            color: #333;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .social-btn:hover {
+            border-color: #6546f5;
+            transform: translateY(-2px);
+        }
+
+        .social-btn svg {
+            width: 18px;
+            height: 18px;
+        }
+
+        /* Signup */
+
+        .signup-text {
+            text-align: center;
+            margin-top: 30px;
+            font-size: 10px;
+            color: #777;
+        }
+
+        .signup-text a {
+            color: #6546f5;
+            font-weight: 600;
+            text-decoration: none;
+        }
+
+        .signup-text a:hover {
+            text-decoration: underline;
+        }
+
+        /* Flash Messages */
+
+        .alert {
+            padding: 10px 12px;
+            font-size: 14px;
+            margin-bottom: 18px;
+        }
+
+        .alert-danger {
+
+            color: #d33;
+
+        }
+
+        .alert-success {
+            background: #effff4;
+            color: #198754;
+            border: 1px solid #c8f0d5;
+        }
+
+        /* Mobile */
+
+        @media(max-width: 520px) {
+
+            body {
+                padding: 10px;
+            }
+
+            .login-left {
+                padding: 35px 25px;
+            }
+
+            .social-buttons {
+                flex-direction: column;
+                gap: 10px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="login-container">
+
+    <div class="login-left">
+
+        <!-- Paper Plane -->
+
+        <div class="plane">
+
+            <svg viewBox="0 0 24 24" fill="none">
+
+                <path d="M22 2L11 13"
+                      stroke="currentColor"
+                      stroke-width="2"
+                      stroke-linecap="round"/>
+
+                <path d="M22 2L15 22L11 13L2 9L22 2Z"
+                      fill="currentColor"/>
+
+            </svg>
+
+        </div>
+
+        <div class="dotted-line"></div>
+
+
+        <!-- Title -->
+
+        <h1 class="login-title">
+            Welcome Back!
+        </h1>
+
+        <p class="login-subtitle">
+            Login to continue to Freelancer Hub.
+        </p>
+
+
+
+
+        <!-- LOGIN FORM -->
+
+        {% if error %}
+<div class="alert alert-danger" role="alert">
+    {{ error }}
+</div>
+{% endif %}
+
+{% with messages = get_flashed_messages(with_categories=true) %}
+  {% for category, message in messages %}
+    <div class="alert alert-{{ category }}">{{ message }}</div>
+  {% endfor %}
+{% endwith %}
+
+        <form method="POST" action="{{ url_for('login') }}">
+
+
+            <!-- EMAIL -->
+
+            <div class="form-group">
+
+                <label>
+                    Email Address
+                </label>
+
+                <div class="input-box">
+
+                    <svg viewBox="0 0 24 24" fill="none">
+
+                        <rect x="3"
+                              y="5"
+                              width="18"
+                              height="14"
+                              rx="2"
+                              stroke="currentColor"
+                              stroke-width="1.8"/>
+
+                        <path d="M4 7l8 6 8-6"
+                              stroke="currentColor"
+                              stroke-width="1.8"/>
+
+                    </svg>
+
+                    <input type="email"
+       name="email"
+       placeholder="Enter your email"
+       value="{{ email or '' }}"
+       required>
+
+                </div>
+
+            </div>
+
+
+            <!-- PASSWORD -->
+
+            <div class="form-group">
+
+                <label>
+                    Password
+                </label>
+
+                <div class="input-box password-box">
+
+                    <svg viewBox="0 0 24 24" fill="none">
+
+                        <rect x="5"
+                              y="10"
+                              width="14"
+                              height="10"
+                              rx="2"
+                              stroke="currentColor"
+                              stroke-width="1.8"/>
+
+                        <path d="M8 10V7a4 4 0 018 0v3"
+                              stroke="currentColor"
+                              stroke-width="1.8"/>
+
+                    </svg>
+
+                    <input type="password"
+                           name="password"
+                           id="password"
+                           placeholder="Enter your password"
+                           required>
+
+                    <span class="show-password"
+                          onclick="togglePassword()">
+
+                        <svg id="eyeIcon"
+                             viewBox="0 0 24 24"
+                             fill="none">
+
+                            <path d="M2 12s3.5-6 10-6
+                                     10 6 10 6-3.5 6-10 6
+                                     -10-6-10-6z"
+                                  stroke="currentColor"
+                                  stroke-width="1.7"/>
+
+                            <circle cx="12"
+                                    cy="12"
+                                    r="2.5"
+                                    stroke="currentColor"
+                                    stroke-width="1.7"/>
+
+                        </svg>
+
+                    </span>
+
+                </div>
+
+            </div>
+
+
+            <!-- OPTIONS -->
+
+            <div class="login-options">
+
+                <div class="remember">
+
+                    <input type="checkbox"
+                           id="remember"
+                           name="remember">
+
+                    <label for="remember">
+                        Remember me
+                    </label>
+
+                </div>
+
+                <a href="#"
+                   class="forgot-password">
+                    Forgot Password?
+                </a>
+
+            </div>
+
+
+            <!-- LOGIN BUTTON -->
+
+            <button type="submit"
+                    class="login-btn">
+
+                Login
+
+            </button>
+
+        </form>
+
+
+        <!-- OR -->
+
+        <div class="or">
+            or continue with
+        </div>
+
+
+        <!-- SOCIAL BUTTONS -->
+
+        <div class="social-buttons">
+
+
+            <!-- GOOGLE -->
+
+            <button type="button"
+                    class="social-btn">
+
+                <svg viewBox="0 0 24 24">
+
+                    <path fill="#4285F4"
+                          d="M21.35 12.23c0-.78-.07-1.53-.22-2.23H12v4.22h5.24a4.48 4.48 0 01-1.94 2.94v2.44h3.14c1.84-1.7 2.91-4.2 2.91-7.37z"/>
+
+                    <path fill="#34A853"
+                          d="M12 21.5c2.63 0 4.84-.87 6.45-2.36l-3.14-2.44c-.87.58-1.98.93-3.31.93-2.54 0-4.69-1.72-5.46-4.03H3.3v2.52A9.74 9.74 0 0012 21.5z"/>
+
+                    <path fill="#FBBC05"
+                          d="M6.54 13.6A5.85 5.85 0 016.23 12c0-.56.11-1.1.31-1.6V7.88H3.3A9.74 9.74 0 002.25 12c0 1.57.38 3.05 1.05 4.12l3.24-2.52z"/>
+
+                    <path fill="#EA4335"
+                          d="M12 6.37c1.43 0 2.71.49 3.72 1.45l2.79-2.79C16.84 3.48 14.63 2.5 12 2.5a9.74 9.74 0 00-8.7 5.38l3.24 2.52C7.31 8.09 9.46 6.37 12 6.37z"/>
+
+                </svg>
+
+                Google
+
+            </button>
+
+
+            <!-- FACEBOOK -->
+
+            <button type="button"
+                    class="social-btn">
+
+                <svg viewBox="0 0 24 24">
+
+                    <circle cx="12"
+                            cy="12"
+                            r="10"
+                            fill="#1877F2"/>
+
+                    <path d="M13.5 8.2h1.9V5.1c-.33-.04-1.47-.14-2.8-.14-2.78 0-4.68 1.7-4.68 4.83v2.7H5v3.47h2.92V21h3.58v-5.04h2.96l.47-3.47H11.5V10.1c0-1 .27-1.7 1.99-1.9z"
+                          fill="white"/>
+
+                </svg>
+
+                Facebook
+
+            </button>
+
+        </div>
+
+
+        <!-- SIGN UP -->
+
+        <div class="signup-text">
+
+            Don't have an account?
+
+            <a href="{{ url_for('signup') }}">
+                Sign Up
+            </a>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- PASSWORD TOGGLE -->
+
+<script>
+
+function togglePassword() {
+
+    const password =
+        document.getElementById("password");
+
+    if (password.type === "password") {
+
+        password.type = "text";
+
+    } else {
+
+        password.type = "password";
+
+    }
+
+}
+
+</script>
+<script>
+    // Hide the error message after 5 seconds (5000 ms)
+    setTimeout(function () {
+        document.querySelectorAll(".alert").forEach(function (box) {
+            box.style.transition = "opacity 0.5s";
+            box.style.opacity = "0";
+            setTimeout(function () { box.remove(); }, 500);
+        });
+    }, 2000);
+</script>
+</body>
+</html>

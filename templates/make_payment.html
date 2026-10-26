@@ -1,0 +1,316 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Make Payment | Freelancer Hub</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+          rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css"
+          rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap"
+          rel="stylesheet">
+
+    <!-- QR Code Library -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+
+    <style>
+        body {
+            background: #f5f7fb;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .payment-container {
+            max-width: 550px;
+            margin: 60px auto;
+        }
+
+        .payment-card {
+            background: white;
+            border-radius: 18px;
+            padding: 30px;
+            border: 1px solid #e5e7eb;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.06);
+        }
+
+        .payment-icon {
+            width: 65px;
+            height: 65px;
+            border-radius: 50%;
+            background: #ede9fe;
+            color: #6366f1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 28px;
+            margin: 0 auto 18px;
+        }
+
+        .payment-title {
+            text-align: center;
+            font-size: 22px;
+            font-weight: 600;
+            margin-bottom: 25px;
+        }
+
+        .project-box {
+            background: #f9fafb;
+            border-radius: 10px;
+            padding: 15px;
+            margin-bottom: 20px;
+        }
+
+        .project-box small {
+            color: #6b7280;
+            display: block;
+            font-size: 12px;
+            margin-bottom: 4px;
+        }
+
+        .project-box strong {
+            color: #111827;
+            font-size: 14px;
+            overflow-wrap: anywhere;
+        }
+
+        .form-label {
+            font-size: 13px;
+            font-weight: 500;
+        }
+
+        .form-control {
+            padding: 11px;
+            border-radius: 8px;
+        }
+
+        .pay-btn {
+            width: 100%;
+            background: #6366f1;
+            color: white;
+            border: none;
+            padding: 12px;
+            border-radius: 8px;
+            font-weight: 500;
+            margin-top: 10px;
+        }
+
+        .pay-btn:hover {
+            background: #4f46e5;
+            color: white;
+        }
+
+        .qr-box {
+            display: none;
+            text-align: center;
+            margin-top: 22px;
+            padding: 20px;
+            background: #f9fafb;
+            border-radius: 12px;
+        }
+
+        #qrcode {
+            display: flex;
+            justify-content: center;
+            margin: 18px auto;
+        }
+
+        #qrcode img,
+        #qrcode canvas {
+            max-width: 100%;
+            height: auto;
+        }
+
+        .back-link {
+            display: block;
+            text-align: center;
+            margin-top: 20px;
+            color: #6366f1;
+            text-decoration: none;
+            font-size: 13px;
+        }
+
+        .back-link:hover {
+            color: #4f46e5;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container payment-container">
+    <div class="payment-card">
+
+        <div class="payment-icon">
+            <i class="bi bi-qr-code"></i>
+        </div>
+
+        <div class="payment-title">Make Payment</div>
+
+        <div class="project-box">
+            <small>Project</small>
+            <strong>{{ hired.job_title }}</strong>
+        </div>
+
+        <div class="project-box">
+            <small>Freelancer</small>
+            <strong>{{ hired.freelancer_name }}</strong>
+        </div>
+
+        {% if error %}
+        <div class="alert alert-danger">{{ error }}</div>
+        {% endif %}
+
+        <form id="payment-form">
+
+            <div class="mb-3">
+                <label class="form-label">Payment Amount (₹)</label>
+
+                <input
+                    type="number"
+                    id="amount"
+                    class="form-control"
+                    placeholder="Enter amount"
+                    min="0.01"
+                    max="10000000"
+                    step="0.01"
+                    required>
+            </div>
+
+            <button type="submit" class="pay-btn">
+                <i class="bi bi-qr-code me-1"></i>
+                Generate UPI QR Code
+            </button>
+
+        </form>
+
+        <div id="qr-section" class="qr-box">
+
+            <h6 class="fw-semibold">Scan to Pay</h6>
+
+            <p class="text-muted small">
+                Scan this QR Code using your UPI app.
+            </p>
+
+            <div id="qrcode"></div>
+
+            <div class="project-box text-start">
+                <small>UPI ID</small>
+                <strong id="upi-display"></strong>
+            </div>
+
+            <div class="project-box text-start">
+                <small>Payment Amount</small>
+                <strong id="amount-display"></strong>
+            </div>
+
+            <a id="upi-link"
+               href="#"
+               class="pay-btn d-block text-decoration-none">
+                <i class="bi bi-phone me-1"></i>
+                Open UPI App
+            </a>
+
+            <div class="alert alert-warning text-start small mt-3 mb-0">
+                After paying, verify the transaction in your UPI app or
+                bank account. Generating or scanning this QR code does
+                not confirm that payment was received.
+            </div>
+
+        </div>
+
+        <a href="{{ url_for('hired_freelancers') }}" class="back-link">
+            <i class="bi bi-arrow-left me-1"></i>
+            Back to Hired Freelancers
+        </a>
+
+    </div>
+</div>
+
+<script>
+    // Replace this with your own valid UPI ID.
+    const UPI_ID = "9325378584@postbank";
+    const PAYEE_NAME = "Freelancer Hub";
+
+
+document.getElementById("payment-form").addEventListener("submit", async function(event) {
+    event.preventDefault();
+
+    const amount = Number(document.getElementById("amount").value);
+
+    if (!Number.isFinite(amount) || amount <= 0 ||
+        amount > 10000000 ||
+        Math.round(amount * 100) !== amount * 100) {
+        alert("Please enter a valid amount.");
+        return;
+    }
+
+
+    const UPI_ID = {{ (hired.freelancer_upi_id or '') | tojson }};
+    const PAYEE_NAME = {{ (hired.freelancer_name or '') | tojson }};
+
+
+
+if (!UPI_ID || !UPI_ID.includes("@")) {
+    alert("Freelancer has not added a valid UPI ID yet.");
+    return;
+}
+
+
+    try {
+        // Save a Pending record in MySQL first.
+        const response = await fetch(
+            "{{ url_for('record_payment_intent', job_id=hired.job_id, freelancer_id=hired.freelancer_id) }}",
+            {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({ amount: amount })
+            }
+        );
+
+        const result = await response.json();
+
+        if (!response.ok || !result.success) {
+            alert(result.message || "Unable to save payment record.");
+            return;
+        }
+
+        // Generate the UPI QR code only after the record is saved.
+        const upiUrl = new URL("upi://pay");
+        upiUrl.searchParams.set("pa", UPI_ID);
+        upiUrl.searchParams.set("pn", PAYEE_NAME);
+        upiUrl.searchParams.set("am", amount.toFixed(2));
+        upiUrl.searchParams.set("cu", "INR");
+        upiUrl.searchParams.set("tn", "Freelancer Hub project payment");
+
+        document.getElementById("qrcode").innerHTML = "";
+
+        new QRCode(document.getElementById("qrcode"), {
+            text: upiUrl.toString(),
+            width: 220,
+            height: 220,
+            correctLevel: QRCode.CorrectLevel.M
+        });
+
+        document.getElementById("upi-display").textContent = UPI_ID;
+        document.getElementById("amount-display").textContent =
+            "₹" + amount.toFixed(2);
+        document.getElementById("upi-link").href = upiUrl.toString();
+        document.getElementById("qr-section").style.display = "block";
+
+        alert("Payment record saved as Pending. Please scan the QR code to pay.");
+
+    } catch (error) {
+        console.error(error);
+        alert("Something went wrong. Please try again.");
+    }
+});
+
+</script>
+
+</body>
+</html>

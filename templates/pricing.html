@@ -1,0 +1,426 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pricing | Freelancer Hub</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            background: #f8f9ff;
+            color: #24243a;
+            font-family: Arial, sans-serif;
+            margin: 0;
+        }
+
+        /* Navbar */
+        .navbar {
+            min-height: 78px;
+            background: #fff;
+            padding: 12px 0;
+        }
+
+        .logo {
+            width: 45px;
+            height: 45px;
+            object-fit: cover;
+            margin-right: 10px;
+            border-radius: 5px;
+        }
+
+        .brand-title {
+            font-size: 22px;
+            font-weight: 700;
+            line-height: 1.3;
+        }
+
+        .brand-tagline {
+            font-size: 11px;
+            color: #777;
+        }
+
+        .navbar-brand {
+            text-decoration: none;
+            flex-shrink: 0;
+        }
+
+        .navbar-nav .nav-link {
+            color: #444;
+            font-size: 15px;
+            padding: 8px 12px;
+            white-space: nowrap;
+        }
+
+        .navbar-nav .nav-link:hover,
+        .navbar-nav .nav-link.active {
+            color: #6546f5;
+        }
+
+        .btn-primary {
+            background: #6546f5;
+            border-color: #6546f5;
+        }
+
+        .btn-primary:hover {
+            background: #5033d6;
+            border-color: #5033d6;
+        }
+
+        .btn-outline-primary {
+            color: #6546f5;
+            border-color: #6546f5;
+        }
+
+        .btn-outline-primary:hover {
+            background: #6546f5;
+            border-color: #6546f5;
+            color: #fff;
+        }
+
+        /* Page heading */
+        .page-header {
+            text-align: center;
+            padding: 125px 15px 35px;
+            background: linear-gradient(120deg, #f0ebff, #fff);
+        }
+
+        .page-header h1 {
+            font-size: 42px;
+            font-weight: 800;
+        }
+
+        .page-header h1 span {
+            color: #6546f5;
+        }
+
+        .page-header p {
+            font-size: 17px;
+        }
+
+        .text-purple {
+            color: #6546f5;
+        }
+
+        /* Pricing cards */
+        .pricing-card {
+            background: #fff;
+            border: 1px solid #eeeafc;
+            border-radius: 16px;
+            padding: 32px 25px;
+            height: 100%;
+            box-shadow: 0 5px 22px #29205b12;
+            transition: .2s;
+        }
+
+        .pricing-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 28px #29205b18;
+        }
+
+        .pricing-card.featured {
+            border: 2px solid #6546f5;
+        }
+
+        .plan-name {
+            font-size: 23px;
+            font-weight: 700;
+        }
+
+        .price {
+            font-size: 35px;
+            font-weight: 700;
+            margin: 18px 0;
+            color: #252541;
+        }
+
+        .price small {
+            font-size: 14px;
+            font-weight: normal;
+            color: #777;
+        }
+
+        .feature-list {
+            list-style: none;
+            padding: 0;
+            margin: 25px 0;
+        }
+
+        .feature-list li {
+            padding: 9px 0;
+            color: #555;
+        }
+
+        .feature-list li::before {
+            content: "✓ ";
+            color: #198754;
+            font-weight: 700;
+        }
+
+        .btn-purple,
+        .btn-outline-purple {
+            display: block;
+            width: 100%;
+            text-align: center;
+            padding: 11px;
+            border-radius: 8px;
+            text-decoration: none;
+            transition: .2s;
+        }
+
+        .btn-purple {
+            background: #6546f5;
+            color: #fff;
+            border: 1px solid #6546f5;
+        }
+
+        .btn-purple:hover {
+            background: #5033d6;
+            color: #fff;
+        }
+
+        .btn-outline-purple {
+            color: #6546f5;
+            border: 1px solid #6546f5;
+        }
+
+        .btn-outline-purple:hover {
+            background: #6546f5;
+            color: #fff;
+        }
+
+        .note {
+            background: #fff;
+            border-radius: 12px;
+            padding: 22px;
+            margin-top: 35px;
+            text-align: center;
+            box-shadow: 0 5px 20px #0000000a;
+        }
+
+        footer {
+            background: #fff;
+            text-align: center;
+            padding: 25px;
+            margin-top: 45px;
+            color: #777;
+        }
+
+        /* Responsive */
+        @media (max-width: 991px) {
+            .navbar-collapse {
+                padding-top: 15px;
+            }
+
+            .navbar-nav .nav-link {
+                padding: 9px 0;
+            }
+
+            .auth-buttons {
+                margin-top: 12px;
+                padding-bottom: 8px;
+            }
+
+            .page-header h1 {
+                font-size: 34px;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .brand-title {
+                font-size: 20px;
+            }
+
+            .brand-tagline {
+                font-size: 10px;
+            }
+
+            .logo {
+                width: 40px;
+                height: 40px;
+            }
+
+            .page-header {
+                padding: 110px 15px 30px;
+            }
+
+            .page-header h1 {
+                font-size: 30px;
+            }
+
+            .price {
+                font-size: 30px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<!-- Navbar: same logo as Find Work -->
+<nav class="navbar navbar-expand-lg bg-white shadow-sm fixed-top">
+    <div class="container">
+
+        <a class="navbar-brand d-flex align-items-center"
+           href="{{ url_for('home') }}">
+            <img src="{{ url_for('static', filename='icon.jpeg') }}"
+                 class="logo" alt="Freelancer Hub Logo">
+
+            <div>
+                <div class="brand-title">
+                    <span class="text-primary">Freelancer</span>
+                    <span class="text-dark">Hub</span>
+                </div>
+                <div class="brand-tagline">Work • Connect • Grow</div>
+            </div>
+        </a>
+
+        <button class="navbar-toggler" type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#mainNavbar"
+                aria-controls="mainNavbar"
+                aria-expanded="false"
+                aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="mainNavbar">
+
+            <ul class="navbar-nav mx-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ url_for('home') }}">Home</a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ url_for('find_work_page') }}">Find Work</a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ url_for('find_talent_page') }}">Find Talent</a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ url_for('projects_page') }}">Projects</a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ url_for('how_it_works_page') }}">How It Works</a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link active" href="{{ url_for('pricing_page') }}">Pricing</a>
+                </li>
+            </ul>
+
+            <div class="d-flex align-items-center auth-buttons">
+                <a href="{{ url_for('login') }}"
+                   class="btn btn-outline-primary me-2">Login</a>
+
+                <a href="{{ url_for('signup') }}"
+                   class="btn btn-primary px-4">Sign Up</a>
+            </div>
+
+        </div>
+    </div>
+</nav>
+
+<!-- Page heading -->
+<section class="page-header">
+    <div class="container">
+        <span class="badge rounded-pill mb-3"
+              style="background:#e8e1ff; color:#6546f5;">
+            <i class="bi bi-tags"></i> Plans for every need
+        </span>
+
+        <h1>Simple <span>Pricing</span></h1>
+
+        <p class="text-secondary mt-3 mb-0">
+            Explore Freelancer Hub with plans designed for different needs.
+        </p>
+    </div>
+</section>
+
+<!-- Pricing plans -->
+<section class="container py-5">
+    <div class="row g-4 justify-content-center">
+
+        <!-- Free plan -->
+        <div class="col-md-6 col-lg-4">
+            <div class="pricing-card">
+                <div class="plan-name">Free</div>
+                <p class="text-muted">For getting started</p>
+
+                <div class="price">₹0 <small>/ forever</small></div>
+
+                <ul class="feature-list">
+                    <li>Create an account</li>
+                    <li>Browse available projects</li>
+                    <li>Explore freelancer profiles</li>
+                    <li>Basic profile setup</li>
+                </ul>
+
+                <a href="{{ url_for('signup') }}"
+                   class="btn-outline-purple">
+                    Get Started
+                </a>
+            </div>
+        </div>
+
+        <!-- Professional plan -->
+        <div class="col-md-6 col-lg-4">
+            <div class="pricing-card featured">
+                <span class="badge mb-3"
+                      style="background:#e8e1ff; color:#6546f5;">
+                    Recommended
+                </span>
+
+                <div class="plan-name">Professional</div>
+                <p class="text-muted">For growing your opportunities</p>
+
+                <div class="price">Coming Soon</div>
+
+                <ul class="feature-list">
+                    <li>Everything in Free</li>
+                    <li>Enhanced profile features</li>
+                    <li>More project management tools</li>
+                    <li>Additional productivity features</li>
+                </ul>
+
+                <a href="{{ url_for('signup') }}"
+                   class="btn-purple">
+                    Join Freelancer Hub
+                </a>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Pricing note -->
+    <div class="note">
+        <h5 class="fw-bold">Transparent Pricing</h5>
+        <p class="text-secondary mb-0">
+            These are informational plans for this project. Paid subscriptions
+            and payment processing are not enabled yet.
+        </p>
+    </div>
+</section>
+
+<footer>
+    <div class="container">
+        © 2026 Freelancer Hub · Work • Connect • Grow
+    </div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+</html>
+```
