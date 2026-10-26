@@ -30,10 +30,12 @@ def allowed_resume(filename):
 
 def get_db_connection():
     return mysql.connector.connect(
-        host="localhost",
-        user="root",
-        password="",
-        database="freelancer_hub"
+        host=os.environ.get("DB_HOST", "localhost"),
+        port=int(os.environ.get("DB_PORT", "3306")),
+        user=os.environ.get("DB_USER", "root"),
+        password=os.environ.get("DB_PASSWORD", ""),
+        database=os.environ.get("DB_NAME", "freelancer_hub"),
+        ssl_ca=os.environ.get("DB_SSL_CA") or None
     )
 
 def create_notification(user_id, title, message):
