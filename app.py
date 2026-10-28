@@ -28,15 +28,18 @@ def allowed_resume(filename):
 # DATABASE
 # =====================================================
 
+
 def get_db_connection():
     return mysql.connector.connect(
-        host=os.environ.get("DB_HOST", "localhost"),
+        host=os.environ["DB_HOST"],
         port=int(os.environ.get("DB_PORT", "3306")),
-        user=os.environ.get("DB_USER", "root"),
-        password=os.environ.get("DB_PASSWORD", ""),
-        database=os.environ.get("DB_NAME", "freelancer_hub"),
-        ssl_ca=os.environ.get("DB_SSL_CA") or None
+        user=os.environ["DB_USER"],
+        password=os.environ["DB_PASSWORD"],
+        database=os.environ["DB_NAME"],
+        ssl_disabled=False,
+        connection_timeout=10
     )
+
 
 def create_notification(user_id, title, message):
 
